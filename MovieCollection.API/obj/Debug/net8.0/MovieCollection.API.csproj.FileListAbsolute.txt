@@ -1,0 +1,8 @@
+D:\Workspace\Test\MovieCollection\MovieCollection.API\obj\Debug\net8.0\MovieCollection.API.csproj.AssemblyReference.cache
+D:\Workspace\Test\MovieCollection\MovieCollection.API\obj\Debug\net8.0\MovieCollection.API.GeneratedMSBuildEditorConfig.editorconfig
+D:\Workspace\Test\MovieCollection\MovieCollection.API\obj\Debug\net8.0\MovieCollection.API.AssemblyInfoInputs.cache
+D:\Workspace\Test\MovieCollection\MovieCollection.API\obj\Debug\net8.0\MovieCollection.API.AssemblyInfo.cs
+D:\Workspace\Test\MovieCollection\MovieCollection.API\obj\Debug\net8.0\MovieCollection.API.csproj.CoreCompileInputs.cache
+D:\Workspace\Test\MovieCollection\MovieCollection.API\obj\Debug\net8.0\MovieCollection.API.MvcApplicationPartsAssemblyInfo.cs
+D:\Workspace\Test\MovieCollection\MovieCollection.API\obj\Debug\net8.0\MovieCollection.API.MvcApplicationPartsAssemblyInfo.cache
+D:\Workspace\Test\MovieCollection\MovieCollection.API\obj\Debug\net8.0\MovieCollection.API.sourcelink.json
