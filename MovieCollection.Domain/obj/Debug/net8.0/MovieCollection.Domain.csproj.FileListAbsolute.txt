@@ -1,0 +1,12 @@
+D:\Workspace\Test\MovieCollection\MovieCollection.Domain\bin\Debug\net8.0\MovieCollection.Domain.deps.json
+D:\Workspace\Test\MovieCollection\MovieCollection.Domain\bin\Debug\net8.0\MovieCollection.Domain.dll
+D:\Workspace\Test\MovieCollection\MovieCollection.Domain\bin\Debug\net8.0\MovieCollection.Domain.pdb
+D:\Workspace\Test\MovieCollection\MovieCollection.Domain\obj\Debug\net8.0\MovieCollection.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Workspace\Test\MovieCollection\MovieCollection.Domain\obj\Debug\net8.0\MovieCollection.Domain.AssemblyInfoInputs.cache
+D:\Workspace\Test\MovieCollection\MovieCollection.Domain\obj\Debug\net8.0\MovieCollection.Domain.AssemblyInfo.cs
+D:\Workspace\Test\MovieCollection\MovieCollection.Domain\obj\Debug\net8.0\MovieCollection.Domain.csproj.CoreCompileInputs.cache
+D:\Workspace\Test\MovieCollection\MovieCollection.Domain\obj\Debug\net8.0\MovieCollection.Domain.sourcelink.json
+D:\Workspace\Test\MovieCollection\MovieCollection.Domain\obj\Debug\net8.0\MovieCollection.Domain.dll
+D:\Workspace\Test\MovieCollection\MovieCollection.Domain\obj\Debug\net8.0\refint\MovieCollection.Domain.dll
+D:\Workspace\Test\MovieCollection\MovieCollection.Domain\obj\Debug\net8.0\MovieCollection.Domain.pdb
+D:\Workspace\Test\MovieCollection\MovieCollection.Domain\obj\Debug\net8.0\ref\MovieCollection.Domain.dll
