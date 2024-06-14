@@ -6,6 +6,6 @@ namespace MovieCollection.API.Commands
 {
     public class CreateEntityCommand<TDto>: ICreateEntityCommand 
     {
-        public TDto Data { get; set; }
+        public required TDto Data { get; set; }
     }
 }

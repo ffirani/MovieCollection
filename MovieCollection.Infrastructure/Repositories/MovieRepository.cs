@@ -1,5 +1,6 @@
 ﻿using MovieCollection.Domain.Models;
 using MovieCollection.Domain.Repository;
+using MovieCollection.Infrastructure.Db;
 using MovieCollection.Infrastructure.Repositories.Base;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace MovieCollection.Infrastructure.Repositories
 {
     public class MovieRepository : Repository<Movie>
     {
+        public MovieRepository(AppDbContext dbContext):base(dbContext) { }
         
     }
 }

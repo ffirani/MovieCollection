@@ -2,22 +2,34 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Abstractions;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.Resource;
+using Microsoft.IdentityModel.Tokens;
 using MovieCollection.API.Commands;
 using MovieCollection.API.Commands.Base;
 using MovieCollection.API.Core;
+using MovieCollection.API.Core.Authentication;
+using MovieCollection.Infrastructure.Db.Configurations;
+using MovieCollection.API.Mapper;
 using MovieCollection.Domain.Models;
 using MovieCollection.Domain.Models.Base;
+using MovieCollection.Infrastructure.Db;
 using Serilog;
 using Serilog.Events;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text;
+using MovieCollection.Infrastructure.Repositories;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 namespace MovieCollection.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public async static Task Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -35,32 +47,95 @@ namespace MovieCollection.API
                 builder.Services.AddSerilog(lc => lc
                                             .WriteTo.Console()
                                             .ReadFrom.Configuration(builder.Configuration));
-                // Add services to the container.
-                builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+
+                builder.Services.AddHttpContextAccessor();
+                // Load JWT settings from configuration
+                var jwtSettings = new JwtSettings();
+                builder.Configuration.Bind(nameof(JwtSettings), jwtSettings);
+                builder.Services.AddSingleton(jwtSettings);
+
+                // Configure authentication
+                builder.Services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = false,
+                        ValidateIssuerSigningKey = false,
+                        ValidIssuer = jwtSettings.Issuer,
+                        ValidAudience = jwtSettings.Audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey))
+                    };
+                    options.MapInboundClaims = false;
+                });
 
                 builder.Services.AddControllers();
                 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
                 builder.Services.AddEndpointsApiExplorer();
-                builder.Services.AddSwaggerGen();
+                builder.Services.AddSwaggerGen(c =>
+                {
+                    c.SwaggerDoc("v1", new OpenApiInfo
+                    {
+                        Title = "Movie Collection API",
+                        Version = "v1"
+                    });
+                    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                    {
+                        Name = "Authorization",
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = "Bearer",
+                        BearerFormat = "JWT",
+                        In = ParameterLocation.Header,
+                        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
+                    });
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    {
+                        new OpenApiSecurityScheme {
+                                Reference = new OpenApiReference {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                        }
+                    },
+                        new string[] {}
+                    }
+                    });
+                });
+
                 builder.Services.AddCRUDCommands();
                 builder.Services.AddExecutionContext();
-                builder.Services.AddMediatR(cfg => {
+                builder.Services.AddMediatR(cfg =>
+                {
                     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
                 });
-                builder.Services.AddAutoMapper(typeof(Program),typeof(Entity));
+                builder.Services.AddDatabase(builder.Configuration);
+                builder.Services.AddRepository();
+                builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(Program)));
+                builder.Services.AddHealthChecks();
                 
                 var app = builder.Build();
-                
+
                 // Configure the HTTP request pipeline.
                 if (app.Environment.IsDevelopment())
                 {
                     app.UseSwagger();
                     app.UseSwaggerUI();
                 }
+                else
+                {
+                    app.UseHsts();
+                }
+                await InitializeDb(app);
 
+                app.MapHealthChecks("/api/hc");
                 app.UseHttpsRedirection();
 
+                app.UseAuthentication();
                 app.UseAuthorization();
 
                 app.MapControllers();
@@ -75,9 +150,18 @@ namespace MovieCollection.API
             {
                 Log.CloseAndFlush();
             }
-            
+
         }
-        static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
+
+        private static async Task InitializeDb(WebApplication app)
+        {
+            Log.Information("Applying migrations...");
+            using var scope = app.Services.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            await context.Database.MigrateAsync();
+        }
+
+        public static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)
         {
             return new LoggerConfiguration()
                 .MinimumLevel.Verbose()
@@ -86,6 +170,7 @@ namespace MovieCollection.API
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
         }
+
 
     }
 }

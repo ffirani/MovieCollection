@@ -1,6 +1,10 @@
-﻿namespace MovieCollection.API.Commands
+﻿using MediatR;
+using MovieCollection.API.Commands.Base;
+
+namespace MovieCollection.API.Commands
 {
-    public class DeleteEntityCommand
+    public class DeleteEntityCommand<TEntity> : IRequest,IDeleteEntityCommand
     {
+        public Guid Id { get; set; }
     }
 }

@@ -14,3 +14,5 @@ D:\Workspace\Test\MovieCollection\MovieCollection.Infrastructure\obj\Debug\net8.
 D:\Workspace\Test\MovieCollection\MovieCollection.Infrastructure\bin\Debug\net8.0\MovieCollection.Domain.dll
 D:\Workspace\Test\MovieCollection\MovieCollection.Infrastructure\bin\Debug\net8.0\MovieCollection.Domain.pdb
 D:\Workspace\Test\MovieCollection\MovieCollection.Infrastructure\obj\Debug\net8.0\MovieCollection.Infrastructure.csproj.CopyComplete
+D:\Workspace\Test\MovieCollection\MovieCollection.Infrastructure\bin\Debug\net8.0\MovieCollection.Infrastructure.runtimeconfig.json
+D:\Workspace\Test\MovieCollection\MovieCollection.Infrastructure\obj\Debug\net8.0\MovieCollection.Infrastructure.genruntimeconfig.cache

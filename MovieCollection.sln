@@ -11,7 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieCollection.Infrastruct
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieCollection.API.Test", "MovieCollection.API.Test\MovieCollection.API.Test.csproj", "{F77F54DB-13CE-4017-B297-F17C60235675}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieCollection.Infrastructure.Test", "MovieCollection.Infrastructure.Test\MovieCollection.Infrastructure.Test.csproj", "{B8A193EE-5157-4642-90E3-C923FB0023B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieCollection.Infrastructure.Test", "MovieCollection.Infrastructure.Test\MovieCollection.Infrastructure.Test.csproj", "{B8A193EE-5157-4642-90E3-C923FB0023B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{58ED9860-CE32-4DFB-8F66-6594D0183D9C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieCollection.API.Test.Integration", "MovieCollection.API.Test.Integration\MovieCollection.API.Test.Integration.csproj", "{151EFD01-8EB2-44AC-848D-B19EAD971C1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieCollection.Auth", "MovieCollection.Auth\MovieCollection.Auth.csproj", "{98CC8A32-B62F-4761-98BB-113B78F28A7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +45,22 @@ Global
 		{B8A193EE-5157-4642-90E3-C923FB0023B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8A193EE-5157-4642-90E3-C923FB0023B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8A193EE-5157-4642-90E3-C923FB0023B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{151EFD01-8EB2-44AC-848D-B19EAD971C1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{151EFD01-8EB2-44AC-848D-B19EAD971C1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{151EFD01-8EB2-44AC-848D-B19EAD971C1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{151EFD01-8EB2-44AC-848D-B19EAD971C1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98CC8A32-B62F-4761-98BB-113B78F28A7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98CC8A32-B62F-4761-98BB-113B78F28A7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98CC8A32-B62F-4761-98BB-113B78F28A7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98CC8A32-B62F-4761-98BB-113B78F28A7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F77F54DB-13CE-4017-B297-F17C60235675} = {58ED9860-CE32-4DFB-8F66-6594D0183D9C}
+		{B8A193EE-5157-4642-90E3-C923FB0023B5} = {58ED9860-CE32-4DFB-8F66-6594D0183D9C}
+		{151EFD01-8EB2-44AC-848D-B19EAD971C1D} = {58ED9860-CE32-4DFB-8F66-6594D0183D9C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BF3BE407-3301-4F01-A764-969D47880A5D}

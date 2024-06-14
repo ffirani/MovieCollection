@@ -10,6 +10,6 @@ namespace MovieCollection.Domain.Models
     public class Movie : Entity
     {
         public string Title { get; set; }
-        public DateTime ProductionYear { get; set; }
+        public DateTime ReleaseData { get; set; }
     }
 }

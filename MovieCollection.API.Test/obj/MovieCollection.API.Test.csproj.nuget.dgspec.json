@@ -35,9 +35,6 @@
             "projectReferences": {
               "D:\\Workspace\\Test\\MovieCollection\\MovieCollection.API\\MovieCollection.API.csproj": {
                 "projectPath": "D:\\Workspace\\Test\\MovieCollection\\MovieCollection.API\\MovieCollection.API.csproj"
-              },
-              "D:\\Workspace\\Test\\MovieCollection\\MovieCollection.Domain\\MovieCollection.Domain.csproj": {
-                "projectPath": "D:\\Workspace\\Test\\MovieCollection\\MovieCollection.Domain\\MovieCollection.Domain.csproj"
               }
             }
           }
@@ -52,6 +49,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
             "MediatR": {
               "target": "Package",
               "version": "[12.2.0, )"
@@ -165,7 +166,7 @@
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[8.0.1, )",
+              "version": "[8.0.6, )",
               "noWarn": [
                 "NU1605"
               ]
@@ -176,6 +177,10 @@
               "noWarn": [
                 "NU1605"
               ]
+            },
+            "Microsoft.AspNetCore.Mvc.Testing": {
+              "target": "Package",
+              "version": "[8.0.6, )"
             },
             "Microsoft.Identity.Web": {
               "target": "Package",
@@ -326,7 +331,25 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.6, )"
             }
