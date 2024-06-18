@@ -9,6 +9,9 @@ namespace MovieCollection.Infrastructure.Repositories
         public static IServiceCollection AddRepository(this IServiceCollection services)
         {
             services.AddTransient<IRepository<Movie>, MovieRepository>();
+            services.AddTransient<IRepository<MovieSelection>, MovieSelectionRepository>();
+            services.AddTransient<IRepository<MovieRole>, MovieRoleRepository>();
+            services.AddTransient<IRepository<Movie>, MovieRepository>();
             return services;
         }
     }

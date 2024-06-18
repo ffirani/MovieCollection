@@ -1,8 +1,93 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+﻿# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
-/.vs
-/bin
-/obj
-/MovieCollection.Auth/MovieCollection.Auth.csproj
+# User-specific files (Mono Auto Generated)
+mono_crash.*
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Build Results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio 2019
+.vs/
+.vscode/
+
+# Visual Studio temporary files
+*.pdb
+*.cache/
+*.ilk
+*.log
+*.tlog
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.idb
+*.ipch
+*.lastcodeanalysissucceeded
+*.mdf
+*.ndb
+*.opendb
+*.sdf
+*.unsuccessfulbuild
+
+# Visual Studio Code Coverage
+*.coverage
+*.coveragexml
+
+# SQL Server files
+*.mdf
+*.ldf
+
+# Entity Framework
+*.edmx*
+*.tt
+*.ttinclude
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Npm package directory
+# it's a good idea to exclude it, if you have dependencies
+# that are bundled
+node_modules/
+
+# Yarn v2
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# RIA/Silverlight projects
+Generated_Code/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# End of system generated ignore file
