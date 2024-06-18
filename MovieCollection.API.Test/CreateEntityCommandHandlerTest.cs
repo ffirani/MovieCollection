@@ -31,7 +31,7 @@ namespace MovieCollection.API.Test
             var context = CreateExecutionContextForMovie(movieId);
             var command = new CreateEntityCommand<MovieDto>() { Data = new MovieDto() };
             command.Data = new MovieDto() { Title = "The Shawshank Redemption", ReleaseData = new DateTime(1994,6,10) };
-            var handler = new CreateEntityCommandHandler(context);
+            var handler = new CreateEntityCommandHandler<MovieDto,Movie>(context);
 
             var response = await handler.Handle(command, CancellationToken.None);
 
@@ -44,8 +44,8 @@ namespace MovieCollection.API.Test
 
             var movieId = Guid.NewGuid();
             var context = CreateExecutionContextForMovie(movieId);
-            var command = Substitute.For<ICreateEntityCommand>();
-            var handler = new CreateEntityCommandHandler(context);
+            var command = Substitute.For<CreateEntityCommand<MovieDto>>();
+            var handler = new CreateEntityCommandHandler<MovieDto,Movie>(context);
 
             var exception = await Record.ExceptionAsync(async () => await handler.Handle(command, CancellationToken.None));
 

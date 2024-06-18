@@ -4,7 +4,7 @@ using MovieCollection.Domain.Models.Base;
 
 namespace MovieCollection.API.Commands
 {
-    public class CreateEntityCommand<TDto>: ICreateEntityCommand 
+    public class CreateEntityCommand<TDto> : IRequest<CreateEntityResponse>
     {
         public required TDto Data { get; set; }
     }

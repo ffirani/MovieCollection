@@ -4,7 +4,6 @@ using MovieCollection.Domain.Models;
 
 namespace MovieCollection.API.Commands.Dto
 {
-    [DomainEquivalent(typeof(Movie))]
     public class MovieDto
     {
         public Guid? Id { get; set; }
