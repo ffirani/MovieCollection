@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieCollection.API.Commands;
 using MovieCollection.API.Commands.Base;
-using MovieCollection.API.Dto;
+using MovieCollection.API.Commands.Dto;
 using MovieCollection.API.Query;
 using MovieCollection.Domain.Models;
 using MovieCollection.Domain.Models.Base;
@@ -26,7 +26,7 @@ namespace MovieCollection.API.Controllers
         [Authorize]
         [Route("create")]
         [HttpPost]
-        public async Task<ActionResult<CreateEntityResponse>> CreateMovie([FromBody] CreateEntityCommand<MovieDto> command)
+        public async Task<ActionResult<CreateEntityResponse>> Create([FromBody] CreateEntityCommand<MovieDto> command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);
@@ -34,8 +34,8 @@ namespace MovieCollection.API.Controllers
 
         [Authorize]
         [Route("update")]
-        [HttpPost]
-        public async Task<ActionResult> UpdateMovie([FromBody] UpdateEntityCommand<MovieDto> command)
+        [HttpPut]
+        public async Task<ActionResult> Update([FromBody] UpdateEntityCommand<MovieDto> command)
         {
             await _mediator.Send(command);
             return Ok();
@@ -44,7 +44,7 @@ namespace MovieCollection.API.Controllers
         [Authorize]
         [Route("delete")]
         [HttpDelete]
-        public async Task<ActionResult> DeleteMovie([FromBody] DeleteEntityCommand<MovieDto> command)
+        public async Task<ActionResult> Delete([FromBody] DeleteEntityCommand<MovieDto> command)
         {
             await _mediator.Send(command);
             return Ok();
@@ -53,7 +53,7 @@ namespace MovieCollection.API.Controllers
         [Authorize]
         [Route("retrieve")]
         [HttpGet]
-        public async Task<ActionResult<RetrieveEntityResponse<MovieDto>>> RetrieveMovie([FromBody] RetrieveEntityQuery<MovieDto> command)
+        public async Task<ActionResult<RetrieveEntityResponse<MovieDto>>> Retrieve([FromBody] RetrieveEntityQuery<MovieDto> command)
         {
             await _mediator.Send(command);
             return Ok();
@@ -62,7 +62,7 @@ namespace MovieCollection.API.Controllers
         [Authorize]
         [Route("retrieve-multiple")]
         [HttpGet]
-        public async Task<ActionResult<RetrieveMultipleEntityResponse<MovieDto>>> RetrieveMultipleMovie([FromBody] RetrieveMultipleEntityQuery<MovieDto> command)
+        public async Task<ActionResult<RetrieveMultipleEntityResponse<MovieDto>>> RetrieveMultiple([FromBody] RetrieveMultipleEntityQuery<MovieDto> command)
         {
             await _mediator.Send(command);
             return Ok();

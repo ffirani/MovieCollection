@@ -2,5 +2,6 @@
 {
     public class RetrieveEntityResponse<T>
     {
+        public T Entity { get; set; }
     }
 }

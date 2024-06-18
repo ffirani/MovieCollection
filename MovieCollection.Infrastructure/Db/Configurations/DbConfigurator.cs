@@ -22,8 +22,7 @@ namespace MovieCollection.Infrastructure.Db.Configurations
                         sqlOptions.MigrationsAssembly(typeof(DbConfigurator).GetTypeInfo().Assembly.GetName().Name);
                         sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                     });
-            },
-            ServiceLifetime.Scoped);
+            },ServiceLifetime.Scoped);
             return services;
         }
     }

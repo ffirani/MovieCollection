@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MovieCollection.API.Commands;
+using MovieCollection.API.Commands.Dto;
 using MovieCollection.API.Core;
-using MovieCollection.API.Dto;
 using MovieCollection.Domain.Models;
 using MovieCollection.Domain.Repository;
 using MovieCollection.Infrastructure.Repositories.Base;

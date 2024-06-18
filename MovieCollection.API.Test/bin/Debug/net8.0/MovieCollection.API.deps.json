@@ -80,12 +80,12 @@
           "Microsoft.AspNetCore.Hosting": "8.0.0.0",
           "Microsoft.AspNetCore.Hosting.Server.Abstractions": "8.0.0.0",
           "Microsoft.AspNetCore.Html.Abstractions": "8.0.0.0",
-          "Microsoft.AspNetCore.Http.Abstractions": "8.0.0.0",
+          "Microsoft.AspNetCore.Http.Abstractions.Reference": "8.0.0.0",
           "Microsoft.AspNetCore.Http.Connections.Common": "8.0.0.0",
           "Microsoft.AspNetCore.Http.Connections": "8.0.0.0",
           "Microsoft.AspNetCore.Http": "8.0.0.0",
           "Microsoft.AspNetCore.Http.Extensions": "8.0.0.0",
-          "Microsoft.AspNetCore.Http.Features": "8.0.0.0",
+          "Microsoft.AspNetCore.Http.Features.Reference": "8.0.0.0",
           "Microsoft.AspNetCore.Http.Results": "8.0.0.0",
           "Microsoft.AspNetCore.HttpLogging": "8.0.0.0",
           "Microsoft.AspNetCore.HttpOverrides": "8.0.0.0",
@@ -512,6 +512,17 @@
         }
       },
       "Microsoft.AspNetCore.DataProtection.Abstractions/8.0.0-rc.2.23480.2": {},
+      "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "2.2.0",
+          "System.Text.Encodings.Web": "8.0.0"
+        }
+      },
+      "Microsoft.AspNetCore.Http.Features/2.2.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        }
+      },
       "Microsoft.AspNetCore.Mvc.Testing/8.0.6": {
         "dependencies": {
           "Microsoft.AspNetCore.TestHost": "8.0.6",
@@ -1637,6 +1648,7 @@
       },
       "MovieCollection.Infrastructure/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.EntityFrameworkCore": "8.0.6",
           "Microsoft.EntityFrameworkCore.InMemory": "8.0.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.6",
@@ -1841,7 +1853,7 @@
         },
         "compileOnly": true
       },
-      "Microsoft.AspNetCore.Http.Abstractions/8.0.0.0": {
+      "Microsoft.AspNetCore.Http.Abstractions.Reference/8.0.0.0": {
         "compile": {
           "Microsoft.AspNetCore.Http.Abstractions.dll": {}
         },
@@ -1871,7 +1883,7 @@
         },
         "compileOnly": true
       },
-      "Microsoft.AspNetCore.Http.Features/8.0.0.0": {
+      "Microsoft.AspNetCore.Http.Features.Reference/8.0.0.0": {
         "compile": {
           "Microsoft.AspNetCore.Http.Features.dll": {}
         },
@@ -3547,6 +3559,20 @@
       "path": "microsoft.aspnetcore.dataprotection.abstractions/8.0.0-rc.2.23480.2",
       "hashPath": "microsoft.aspnetcore.dataprotection.abstractions.8.0.0-rc.2.23480.2.nupkg.sha512"
     },
+    "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Nxs7Z1q3f1STfLYKJSVXCs1iBl+Ya6E8o4Oy1bCxJ/rNI44E/0f6tbsrVqAWfB7jlnJfyaAtIalBVxPKUPQb4Q==",
+      "path": "microsoft.aspnetcore.http.abstractions/2.2.0",
+      "hashPath": "microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Http.Features/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ziFz5zH8f33En4dX81LW84I6XrYXKf9jg6aM39cM+LffN9KJahViKZ61dGMSO2gd3e+qe5yBRwsesvyqlZaSMg==",
+      "path": "microsoft.aspnetcore.http.features/2.2.0",
+      "hashPath": "microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Mvc.Testing/8.0.6": {
       "type": "package",
       "serviceable": true,
@@ -4438,7 +4464,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.AspNetCore.Http.Abstractions/8.0.0.0": {
+    "Microsoft.AspNetCore.Http.Abstractions.Reference/8.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""
@@ -4463,7 +4489,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.AspNetCore.Http.Features/8.0.0.0": {
+    "Microsoft.AspNetCore.Http.Features.Reference/8.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

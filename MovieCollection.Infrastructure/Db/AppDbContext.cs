@@ -16,6 +16,10 @@ namespace MovieCollection.Infrastructure.Db
     {
         private IIdentityService _identityService;
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieRole> MovieRoles { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<CastAndCrew> CastAndCrews { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { }
@@ -26,7 +30,17 @@ namespace MovieCollection.Infrastructure.Db
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new MovieEntityTypeConfiguration());
+            modelBuilder.Entity<Movie>().Ignore("UpdatedProperties");
+            modelBuilder.Entity<MovieRole>().Ignore("UpdatedProperties");
+            modelBuilder.Entity<Genre>().Ignore("UpdatedProperties");
+            modelBuilder.Entity<Person>().Ignore("UpdatedProperties");
+            modelBuilder.Entity<CastAndCrew>().Ignore("UpdatedProperties");
+
+            modelBuilder.ApplyConfiguration(new MovieTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MovieSelectionTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PersonTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GenreTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CastAndCrewTypeConfiguration());
             modelBuilder.CreateSeeds();
         }
         public override int SaveChanges()
@@ -48,13 +62,14 @@ namespace MovieCollection.Infrastructure.Db
 
             foreach (var entry in entries)
             {
-                var now = DateTime.UtcNow;
+                var now = DateTime.Now;
                 var user = _identityService.GetUserIdentity();
 
                 if (entry.State == EntityState.Added)
                 {
                     ((Entity)entry.Entity).CreatedOn = now;
                     ((Entity)entry.Entity).CreatedBy = user;
+                    ((Entity)entry.Entity).OwnerId = user;
                 }
 
                 ((Entity)entry.Entity).ModifiedOn = now;

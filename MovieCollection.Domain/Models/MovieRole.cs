@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace MovieCollection.Domain.Models
 {
-    public class MovieCollection:Entity
+    public class MovieRole:Entity
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public List<Movie> Movies { get; set; }
+        private string _name;
+        public required string Name { get => _name; set => SetProperty<string>(ref _name, value, nameof(Name)); } 
     }
 }

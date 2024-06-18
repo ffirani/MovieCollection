@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MovieCollection.Domain.Models.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,8 +14,10 @@ namespace MovieCollection.Infrastructure.Db.Configurations.Base
     {
         public virtual void Configure(EntityTypeBuilder<T> builder)
         {
+            builder.Property<Guid>("OwnerId")
+                .IsRequired();
             builder.Property<Guid>("CreatedBy")
-            .IsRequired();
+                .IsRequired();
             builder.Property<DateTime>("CreatedOn")
                 .IsRequired()
                 .HasDefaultValueSql("SYSDATETIME()")

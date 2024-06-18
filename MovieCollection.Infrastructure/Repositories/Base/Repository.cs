@@ -29,20 +29,22 @@ namespace MovieCollection.Infrastructure.Repositories.Base
 
         public async virtual Task Delete(Guid id)
         {
-            var entityToDelete = await _dbSet.FindAsync(id);
-
-            if (entityToDelete == null)
-            {
-                throw new Exception($"Entity of type {nameof(TEntity)} with id {id} not found");
-            }
-            _dbSet.Remove(entityToDelete);
+            var entityToDelete = (TEntity)Activator.CreateInstance(typeof(TEntity));
+            entityToDelete.Id = id;
+            var attachedEntity = _dbSet.Attach(entityToDelete);
+            attachedEntity.State = EntityState.Deleted;
             await SaveAsync();
         }
 
         public async virtual Task Update(TEntity entity)
         {
-            _dbSet.Update(entity);
-            await SaveAsync();
+            _dbContext.Set<TEntity>().Attach(entity);
+
+            foreach (var property in entity.UpdatedProperties)
+            {
+                _dbContext.Entry(entity).Property(property.Key).IsModified = true;
+            }
+            await this.SaveAsync();
         }
 
         public async virtual Task<TEntity> GetById(Guid id)
