@@ -24,6 +24,7 @@ using System.Text;
 using MovieCollection.Infrastructure.Repositories;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using MovieCollection.API.Logging;
 
 namespace MovieCollection.API
 {
@@ -113,6 +114,8 @@ namespace MovieCollection.API
                 {
                     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
                 });
+                builder.Services.AddLogBehavior();
+
                 builder.Services.AddDatabase(builder.Configuration);
                 builder.Services.AddRepository();
                 builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(Program)));
