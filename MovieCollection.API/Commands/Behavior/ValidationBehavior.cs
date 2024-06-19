@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
+using System.Linq;
 
 namespace MovieCollection.API.Commands.Behavior
 {
@@ -18,22 +20,23 @@ namespace MovieCollection.API.Commands.Behavior
                 return await next();
             }
             var context = new ValidationContext<TRequest>(request);
-            var errorsDictionary = _validators
+            var errorsList = _validators
                 .Select(x => x.Validate(context))
                 .SelectMany(x => x.Errors)
                 .Where(x => x != null)
                 .GroupBy(
                     x => x.PropertyName,
                     x => x.ErrorMessage,
-                    (propertyName, errorMessages) => new
+                    (propertyName, errorMessages) => new ValidationFailure
                     {
-                        Key = propertyName,
-                        Values = errorMessages.Distinct().ToArray()
+                        ErrorCode = "5001",
+                        PropertyName = propertyName,
+                        ErrorMessage = string.Join("\r\n",errorMessages)
                     })
-                .ToDictionary(x => x.Key, x => x.Values);
-            if (errorsDictionary.Any())
+                .ToList<ValidationFailure>();
+            if (errorsList.Any())
             {
-                throw new ValidationException(errorsDictionary.ToString());
+                throw new ValidationException(errorsList);
             }
             return await next();
         }
