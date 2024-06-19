@@ -25,6 +25,10 @@ using MovieCollection.Infrastructure.Repositories;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using MovieCollection.API.Logging;
+using MovieCollection.API.Commands.Behavior;
+using static System.Net.Mime.MediaTypeNames;
+using FluentValidation;
+using MovieCollection.API.Error;
 
 namespace MovieCollection.API
 {
@@ -108,21 +112,24 @@ namespace MovieCollection.API
                     });
                 });
 
+
+                builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+                builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+                builder.Services.AddValidationBehavior();
+                builder.Services.AddLogBehavior();
                 builder.Services.AddCRUDCommands();
                 builder.Services.AddExecutionContext();
-                builder.Services.AddMediatR(cfg =>
-                {
-                    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
-                });
-                builder.Services.AddLogBehavior();
+
 
                 builder.Services.AddDatabase(builder.Configuration);
                 builder.Services.AddRepository();
                 builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(Program)));
                 builder.Services.AddHealthChecks();
-                
+                builder.Services.AddTransient<GlobalExceptionHandler>();
+
                 var app = builder.Build();
 
+                app.UseMiddleware<GlobalExceptionHandler>();
                 // Configure the HTTP request pipeline.
                 if (app.Environment.IsDevelopment())
                 {
@@ -161,7 +168,11 @@ namespace MovieCollection.API
             Log.Information("Applying migrations...");
             using var scope = app.Services.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            await context.Database.MigrateAsync();
+            if (!context.Database.IsInMemory())
+            {
+                await context.Database.MigrateAsync();
+            }
+            
         }
 
         public static Serilog.ILogger CreateSerilogLogger(IConfiguration configuration)

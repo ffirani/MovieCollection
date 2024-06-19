@@ -16,13 +16,19 @@ namespace MovieCollection.Infrastructure.Db.Configurations
         {
             services.AddDbContext<AppDbContext>(options =>
             {
+#if DEBUG
+                options.UseInMemoryDatabase("MovieCollection");
+            }
+#else
                 options.UseSqlServer(configuration["ConnectionString"],
                     sqlServerOptionsAction: sqlOptions =>
                     {
                         sqlOptions.MigrationsAssembly(typeof(DbConfigurator).GetTypeInfo().Assembly.GetName().Name);
                         sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                     });
-            },ServiceLifetime.Scoped);
+            }
+#endif
+            ,ServiceLifetime.Scoped);
             return services;
         }
     }
