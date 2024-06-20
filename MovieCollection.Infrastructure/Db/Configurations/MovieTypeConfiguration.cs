@@ -16,7 +16,7 @@ namespace MovieCollection.Infrastructure.Db.Configurations
         public override void Configure(EntityTypeBuilder<Movie> movieConfiguration)
         {
             movieConfiguration.ToTable("Movie");
-            
+
             movieConfiguration.HasKey(m => m.Id);
 
             movieConfiguration
@@ -33,6 +33,10 @@ namespace MovieCollection.Infrastructure.Db.Configurations
                 .Property<decimal>("ImdbRate")
                 .HasColumnName("ImdbRate")
                 .HasColumnType("decimal(2, 1)");
+
+            movieConfiguration
+                .HasMany(m => m.Genres)
+                .WithMany(g => g.Movies);
 
             base.Configure(movieConfiguration);
         }

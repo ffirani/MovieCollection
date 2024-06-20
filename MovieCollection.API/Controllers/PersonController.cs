@@ -64,4 +64,3 @@ namespace MovieCollection.API.Controllers
         }
     }
 }
-}

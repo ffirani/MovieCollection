@@ -59,7 +59,7 @@ namespace MovieCollection.API.Error
             }
             else
             {
-                response.ErrorCode = "ERR10000000";
+                response.ErrorCode = "ERR10000";
                 response.Message = "Unexpected error occured.";
                 response.ErrorDetail = isDebugMode ? ex.ToString():string.Empty;
             }

@@ -29,7 +29,7 @@ namespace MovieCollection.Infrastructure.Db.Configurations
                 .HasColumnName("Description")
                 .HasMaxLength(10000)
                 .IsRequired();
-
+            
             base.Configure(movieSelectionConfiguration);
         }
     }

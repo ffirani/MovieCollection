@@ -1,4 +1,5 @@
-﻿using MovieCollection.Domain.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MovieCollection.Domain.Models;
 using MovieCollection.Domain.Repository;
 using MovieCollection.Infrastructure.Db;
 using MovieCollection.Infrastructure.Repositories.Base;
@@ -13,6 +14,13 @@ namespace MovieCollection.Infrastructure.Repositories
     public class MovieRepository : Repository<Movie>
     {
         public MovieRepository(AppDbContext dbContext):base(dbContext) { }
-        
+
+        public async override Task<Guid> Create(Movie entity)
+        {
+            _dbContext.Genres.AttachRange(entity.Genres);
+            _dbContext.CastAndCrews.AttachRange(entity.CastAndCrews);
+            return await base.Create(entity);
+        }
+
     }
 }

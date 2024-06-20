@@ -9,23 +9,26 @@ namespace MovieCollection.API.Commands.Base
     {
         public static IServiceCollection AddCRUDCommands(this IServiceCollection services)
         {
-            services.AddTransient<IRequestHandler<CreateEntityCommand<MovieDto>,CreateEntityResponse>, CreateEntityCommandHandler<MovieDto,MovieSelection>>();
-            services.AddTransient<IRequestHandler<UpdateEntityCommand<MovieDto>>, UpdateEntityCommandHandler>();
-            services.AddTransient<IRequestHandler<DeleteEntityCommand<MovieDto>>, DeleteEntityCommandHandler>();
+            services.AddTransient<IRequestHandler<CreateEntityCommand<MovieDto>,CreateEntityResponse>, CreateEntityCommandHandler<MovieDto,Movie>>();
+            services.AddTransient<IRequestHandler<UpdateEntityCommand<MovieDto>>, UpdateEntityCommandHandler<MovieDto, Movie>>();
+            services.AddTransient<IRequestHandler<DeleteEntityCommand<MovieDto>>, DeleteEntityCommandHandler<MovieDto, Movie>>();
+            services.AddTransient<IRequestHandler<RetrieveEntityQuery<MovieDto>, RetrieveEntityResponse<MovieDto>>, RetrieveEntityQueryHandler<MovieDto, Movie>>();
 
             services.AddTransient<IRequestHandler<CreateEntityCommand<MovieSelectionDto>, CreateEntityResponse>, CreateEntityCommandHandler<MovieSelectionDto, MovieSelection>>();
-            services.AddTransient<IRequestHandler<UpdateEntityCommand<MovieSelectionDto>>, UpdateEntityCommandHandler>();
-            services.AddTransient<IRequestHandler<DeleteEntityCommand<MovieSelectionDto>>, DeleteEntityCommandHandler>();
+            services.AddTransient<IRequestHandler<UpdateEntityCommand<MovieSelectionDto>>, UpdateEntityCommandHandler<MovieSelectionDto, MovieSelection>>();
+            services.AddTransient<IRequestHandler<DeleteEntityCommand<MovieSelectionDto>>, DeleteEntityCommandHandler<MovieSelectionDto, MovieSelection>>();
+            services.AddTransient<IRequestHandler<RetrieveEntityQuery<MovieSelectionDto>, RetrieveEntityResponse<MovieSelectionDto>>, RetrieveEntityQueryHandler<MovieSelectionDto, MovieSelection>>();
 
             services.AddTransient<IRequestHandler<CreateEntityCommand<MovieRoleDto>, CreateEntityResponse>, CreateEntityCommandHandler<MovieRoleDto, MovieRole>>();
-            services.AddTransient<IRequestHandler<UpdateEntityCommand<MovieRoleDto>>, UpdateEntityCommandHandler>();
-            services.AddTransient<IRequestHandler<DeleteEntityCommand<MovieRoleDto>>, DeleteEntityCommandHandler>();
+            services.AddTransient<IRequestHandler<UpdateEntityCommand<MovieRoleDto>>, UpdateEntityCommandHandler<MovieRoleDto, MovieRole>>();
+            services.AddTransient<IRequestHandler<DeleteEntityCommand<MovieRoleDto>>, DeleteEntityCommandHandler<MovieRoleDto, MovieRole>>();
+            services.AddTransient<IRequestHandler<RetrieveEntityQuery<MovieRoleDto>, RetrieveEntityResponse<MovieRoleDto>>, RetrieveEntityQueryHandler<MovieRoleDto, MovieRole>>();
 
             services.AddTransient<IRequestHandler<CreateEntityCommand<PersonDto>, CreateEntityResponse>, CreateEntityCommandHandler<PersonDto, Person>>();
-            services.AddTransient<IRequestHandler<UpdateEntityCommand<PersonDto>>, UpdateEntityCommandHandler>();
-            services.AddTransient<IRequestHandler<DeleteEntityCommand<PersonDto>>, DeleteEntityCommandHandler>();
-            //services.AddTransient<IRequestHandler<RetrieveEntityQuery<MovieDto>>, RetrieveEntityQueryHandler>();
-            //services.AddTransient<IRequestHandler<DeleteEntityCommand<MovieDto>>, DeleteEntityCommandHandler>();
+            services.AddTransient<IRequestHandler<UpdateEntityCommand<PersonDto>>, UpdateEntityCommandHandler<PersonDto, Person>>();
+            services.AddTransient<IRequestHandler<DeleteEntityCommand<PersonDto>>, DeleteEntityCommandHandler<PersonDto, Person>>();
+            services.AddTransient<IRequestHandler<RetrieveEntityQuery<PersonDto>, RetrieveEntityResponse<PersonDto>>, RetrieveEntityQueryHandler<PersonDto, Person>>();
+
             return services;
         }
     }

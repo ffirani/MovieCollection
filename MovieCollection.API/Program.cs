@@ -29,6 +29,7 @@ using MovieCollection.API.Commands.Behavior;
 using static System.Net.Mime.MediaTypeNames;
 using FluentValidation;
 using MovieCollection.API.Error;
+using MovieCollection.API.Security;
 
 namespace MovieCollection.API
 {
@@ -77,7 +78,7 @@ namespace MovieCollection.API
                         ValidAudience = jwtSettings.Audience,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey))
                     };
-                    options.MapInboundClaims = false;
+                    options.MapInboundClaims = true;
                 });
 
                 builder.Services.AddControllers();
@@ -114,12 +115,12 @@ namespace MovieCollection.API
 
 
                 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+                builder.Services.AddLogBehavior();
+                builder.Services.AddSecurityBehavior();
                 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
                 builder.Services.AddValidationBehavior();
-                builder.Services.AddLogBehavior();
                 builder.Services.AddCRUDCommands();
                 builder.Services.AddExecutionContext();
-
 
                 builder.Services.AddDatabase(builder.Configuration);
                 builder.Services.AddRepository();

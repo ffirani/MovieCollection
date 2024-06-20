@@ -27,7 +27,7 @@ namespace MovieCollection.API.Test
             var context = CreateExecutionContextForMovie(movieId);
             var command = new DeleteEntityCommand<MovieDto>();
             command.Id = movieId;
-            var handler = new DeleteEntityCommandHandler(context);
+            var handler = new DeleteEntityCommandHandler<MovieDto,Movie>(context);
 
             await handler.Handle(command, CancellationToken.None);
 
@@ -41,7 +41,7 @@ namespace MovieCollection.API.Test
             var context = CreateExecutionContextForMovie(movieId);
             var command = new DeleteEntityCommand<MovieDto>();
             command.Id = movieId;
-            var handler = new DeleteEntityCommandHandler(context);
+            var handler = new DeleteEntityCommandHandler<MovieDto,Movie>(context);
 
             var exception = await Record.ExceptionAsync(async () => await handler.Handle(command, CancellationToken.None));
 
