@@ -20,11 +20,16 @@ namespace MovieCollection.API.Security
                 request is DeleteEntityCommand<GenreDto>)
             {
                 var isAdmin = user.IsInRole("Admin");
-                if(isAdmin) { return true; }
+                if(isAdmin) 
+                { 
+                    return true; 
+                }
+                else
+                {
+                    return false;
+                }
             }
-            
-
-            return false;
+            return true;
         }
     }
 }

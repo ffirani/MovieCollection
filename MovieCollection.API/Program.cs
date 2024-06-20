@@ -30,6 +30,7 @@ using static System.Net.Mime.MediaTypeNames;
 using FluentValidation;
 using MovieCollection.API.Error;
 using MovieCollection.API.Security;
+using System.Security.Claims;
 
 namespace MovieCollection.API
 {
@@ -76,7 +77,8 @@ namespace MovieCollection.API
                         ValidateIssuerSigningKey = false,
                         ValidIssuer = jwtSettings.Issuer,
                         ValidAudience = jwtSettings.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey)),
+                        RoleClaimType = ClaimTypes.Role
                     };
                     options.MapInboundClaims = true;
                 });

@@ -38,7 +38,7 @@ namespace MovieCollection.API.Controllers
         public async Task<ActionResult> Update([FromBody] UpdateEntityCommand<MovieDto> command)
         {
             await _mediator.Send(command);
-            return Ok();
+            return NoContent();
         }
 
         [Authorize]
@@ -47,7 +47,7 @@ namespace MovieCollection.API.Controllers
         public async Task<ActionResult> Delete([FromBody] DeleteEntityCommand<MovieDto> command)
         {
             await _mediator.Send(command);
-            return Ok();
+            return NoContent();
         }
 
         [Authorize]
@@ -55,8 +55,8 @@ namespace MovieCollection.API.Controllers
         [HttpGet]
         public async Task<ActionResult<RetrieveEntityResponse<MovieDto>>> Retrieve([FromBody] RetrieveEntityQuery<MovieDto> command)
         {
-            await _mediator.Send(command);
-            return Ok();
+            var reponse = await _mediator.Send(command);
+            return Ok(reponse);
         }
 
         [Authorize]
@@ -64,8 +64,8 @@ namespace MovieCollection.API.Controllers
         [HttpGet]
         public async Task<ActionResult<RetrieveMultipleEntityResponse<MovieDto>>> RetrieveMultiple([FromBody] RetrieveMultipleEntityQuery<MovieDto> command)
         {
-            await _mediator.Send(command);
-            return Ok();
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
     }
 }

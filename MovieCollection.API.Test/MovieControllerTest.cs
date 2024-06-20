@@ -13,8 +13,9 @@ namespace MovieCollection.API.Test
     public class MovieControllerTest
     {
         [Fact]
-        public async void CreateMovie_valid_input_successful()
+        public async void CreateMovie_valid_input_return_CreateEntityResponse_with_valid_id()
         {
+            //Arange
             IMediator mediator = Substitute.For<IMediator>();
             mediator.Send(Arg.Any<CreateEntityCommand<MovieDto>>()).Returns(new CreateEntityResponse(Guid.NewGuid()));
 
@@ -30,14 +31,20 @@ namespace MovieCollection.API.Test
             {
                 Data = movie
             };
-
+            //Action
             var response = await movieController.Create(command);
-            Assert.Equal((response.Result as OkObjectResult).StatusCode, (int)System.Net.HttpStatusCode.OK);
 
+            //Assert
+            Assert.NotNull(response);
+            Assert.NotNull(response.Result);
+            Assert.IsType<CreateEntityResponse>(((OkObjectResult)response.Result).Value);
+            CreateEntityResponse? responseValue = ((OkObjectResult)response.Result).Value as CreateEntityResponse;
+            Assert.NotNull(responseValue);
+            Assert.NotEqual(responseValue.Id , Guid.Empty);
         }
 
         [Fact]
-        public async void UpdateMovie_change_movie_title_successful()
+        public async void UpdateMovie_change_movie_title_valid_value_response_code_204()
         {
             //Arange
             IMediator mediator = Substitute.For<IMediator>();
@@ -56,12 +63,14 @@ namespace MovieCollection.API.Test
             var response = await movieController.Update(command);
 
             //Assert
-            Assert.Equal((response as OkResult).StatusCode, (int)System.Net.HttpStatusCode.OK);
+            Assert.NotNull(response);
+            Assert.IsType<NoContentResult>(response);
+            Assert.Equal((int)System.Net.HttpStatusCode.NoContent, ((NoContentResult)response).StatusCode);
 
         }
 
         [Fact]
-        public async void DeleteMovie_delete_movie_valid_id_successful()
+        public async void DeleteMovie_delete_movie_valid_id_response_code_204()
         {
             //Arange
             var movieId = new Guid("2D625F09-5807-4FB7-86B3-08DC8D7E586E");
@@ -77,12 +86,14 @@ namespace MovieCollection.API.Test
             var response = await movieController.Delete(command);
 
             //Assert
-            Assert.Equal((response as OkResult).StatusCode, (int)System.Net.HttpStatusCode.OK);
+            Assert.NotNull(response);
+            Assert.IsType<NoContentResult>(response);
+            Assert.Equal((int)System.Net.HttpStatusCode.NoContent, ((NoContentResult)response).StatusCode);
 
         }
 
         [Fact]
-        public async void RetrieveMovie_retrieve_movie_valid_id_successful()
+        public async void RetrieveMovie_retrieve_movie_valid_id_return_RetrieveEntityResponse_same_id()
         {
             //Arange
             var movieId = new Guid("2D625F09-5807-4FB7-86B3-08DC8D7E586E");
@@ -105,7 +116,12 @@ namespace MovieCollection.API.Test
             var response = await movieController.Retrieve(command);
 
             //Assert
-            Assert.Equal((response.Result as OkObjectResult).StatusCode, (int)System.Net.HttpStatusCode.OK);
+            Assert.NotNull(response);
+            Assert.NotNull(response.Result);
+            Assert.Equal((int)System.Net.HttpStatusCode.OK,((OkObjectResult)response.Result).StatusCode);
+            var retrieveResult = ((OkObjectResult)response.Result).Value;
+            Assert.IsType<RetrieveEntityResponse<MovieDto>>(retrieveResult);
+            Assert.Equal(movieId, ((RetrieveEntityResponse<MovieDto>)retrieveResult).Entity.Id);
         }
         [Fact]
         public async void RetrieveMultipleMovie_retrieve_movie_with_specific_name_successful()

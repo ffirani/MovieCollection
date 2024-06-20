@@ -1,9 +1,14 @@
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Microsoft.IdentityModel.Tokens;
 using MovieCollection.API.Commands;
 using MovieCollection.API.Commands.Dto;
+using MovieCollection.API.Query;
 using MovieCollection.API.Test.Integration.Auth;
+using MovieCollection.API.Test.Integration.Db;
+using MovieCollection.Domain.Models;
+using MovieCollection.Infrastructure.Db;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
@@ -13,14 +18,16 @@ using System.Text;
 
 namespace MovieCollection.API.Test.Integration
 {
-    public class MovieControllerTest:IClassFixture<WebApplicationFactory<Program>>
+    public class MovieControllerTest:IClassFixture<WebApplicationFactory<Program>>,IClassFixture<DatabaseFixture>
     {
         private Guid _userId = new Guid("2DA93C56-0722-4772-BCB3-2CB11B694ADC");
         private WebApplicationFactory<Program> _apiFactory;
+        private AppDbContext _dbContext;
 
-        public MovieControllerTest(WebApplicationFactory<Program> apiFactory)
+        public MovieControllerTest(WebApplicationFactory<Program> apiFactory, DatabaseFixture dbFixture)
         {
             _apiFactory = apiFactory;
+            _dbContext = dbFixture.Db;
         }
         [Fact]
         public async void CreateMovie_valid_movie_dto_return_id()
@@ -43,34 +50,44 @@ namespace MovieCollection.API.Test.Integration
             Assert.NotEqual(commandResponse?.Id, Guid.Empty);
         }
 
-        [Fact]
-        public async void UpdateMovie_change_movie_dto_title_no_exception()
+        [Theory]
+        [MemberData(nameof(Movies))]
+        public async void UpdateMovie_change_movie_dto_title_no_exception(string title, decimal imdbRate, DateTime releaseDate)
         {
             //Arange
-            var movie = new MovieDto 
+            Movie movie = CreateMovieEntityInDb(title, imdbRate, releaseDate);
+
+            var movieDto = new MovieDto
             {
-                Id =  new Guid("7f8a3f25-cc8f-45c1-f337-08dc8d6f54fe"),
-                Title = "Test Movie 12", 
+                Id = movie.Id,
+                Title = "Test Movie 15",
+                ImdbRate = 7.0m,
+                ReleaseData = new DateTime(2021, 2, 11)
             };
-            var updateMovieCommand = new UpdateEntityCommand<MovieDto>() { Data = movie };
+            var updateMovieCommand = new UpdateEntityCommand<MovieDto>() { Data = movieDto };
             var commandSerialized = JsonConvert.SerializeObject(updateMovieCommand);
             var content = new StringContent(commandSerialized, UTF8Encoding.UTF8, "application/json");
             var client = _apiFactory.CreateClient();
             var token = TokenHelper.GenerateJwtToken(_userId.ToString(), "Admin");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             //Act
             var response = await client.PutAsync("/api/movie/update", content);
 
             //Assert
             response.EnsureSuccessStatusCode();
+            _dbContext.Entry<Movie>(movie).Reload();
+            Assert.True(movie.Title == movieDto.Title && movie.ImdbRate == movieDto.ImdbRate);
         }
 
-        [Fact]
-        public async void DeleteMovie_movie_dto_no_exception()
+        [Theory]
+        [MemberData(nameof(Movies))]
+        public async void DeleteMovie_movie_dto_no_exception(string title, decimal imdbRate, DateTime releaseDate)
         {
             //Arange
-            var movieId = new Guid("F9186B5F-75B7-497C-F1DD-08DC8CAFF2A3");
-            var deleteMovieCommand = new DeleteEntityCommand<MovieDto>() { Id = movieId };
+            var movie = CreateMovieEntityInDb(title, imdbRate, releaseDate);
+
+            var deleteMovieCommand = new DeleteEntityCommand<MovieDto>() { Id = movie.Id };
             var commandSerialized = JsonConvert.SerializeObject(deleteMovieCommand);
             var content = new StringContent(commandSerialized, UTF8Encoding.UTF8, "application/json");
             var client = _apiFactory.CreateClient();
@@ -87,7 +104,62 @@ namespace MovieCollection.API.Test.Integration
 
             //Assert
             response.EnsureSuccessStatusCode();
+            var testEntity = _dbContext.Movies.FirstOrDefault(m=>m.Id == movie.Id);
+            Assert.Null(testEntity);
         }
+
+        [Theory]
+        [MemberData(nameof(Movies))]
+        public async void RetrieveMovie_movie_dto_no_exception(string title, decimal imdbRate, DateTime releaseDate)
+        {
+            //Arange
+            var movie = CreateMovieEntityInDb(title, imdbRate, releaseDate);
+
+            var retrieveEntityQuery = new RetrieveEntityQuery<MovieDto>() { Id = movie.Id };
+            var commandSerialized = JsonConvert.SerializeObject(retrieveEntityQuery);
+            var content = new StringContent(commandSerialized, UTF8Encoding.UTF8, "application/json");
+            var client = _apiFactory.CreateClient();
+            var token = TokenHelper.GenerateJwtToken(_userId.ToString(), "Admin");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage request = new HttpRequestMessage
+            {
+                Content = content,
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("/api/movie/retrieve", UriKind.Relative)
+            };
+            //Act
+            var response = await client.SendAsync(request);
+
+            //Assert
+            response.EnsureSuccessStatusCode();
+            var retrieveEntity = await response.Content.ReadFromJsonAsync<RetrieveEntityResponse<Movie>>();
+            Assert.NotNull(retrieveEntity);
+            Assert.NotNull(retrieveEntity.Entity);
+            Assert.True(retrieveEntity.Entity.Id == movie.Id && 
+                        retrieveEntity.Entity.Title == title &&
+                        retrieveEntity.Entity.ImdbRate == imdbRate &&
+                        retrieveEntity.Entity.ReleaseData == releaseDate) ;
+        }
+
+        private Movie CreateMovieEntityInDb(string title,decimal imdbRate,DateTime datetime)
+        {
+            var movie = new Movie()
+            {
+                Title = title,
+                ImdbRate = imdbRate,
+                ReleaseData = datetime
+            };
+
+            _dbContext.Movies.Add(movie);
+            _dbContext.SaveChanges();
+            return movie;
+        }
+
+        public static IEnumerable<object[]> Movies =>
+        new List<object[]>
+        {
+            new object[] { "Test Movie 15", 6, new DateTime(2022,6,30)}
+        };
 
     }
 }
