@@ -57,7 +57,7 @@ namespace MovieCollection.API.Controllers.Base
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Authorize]
         [Route("retrieve")]
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult<RetrieveEntityResponse<T>>> Retrieve([FromBody] RetrieveEntityQuery<MovieDto> command)
         {
             var reponse = await _mediator.Send(command);
@@ -68,7 +68,7 @@ namespace MovieCollection.API.Controllers.Base
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Authorize]
         [Route("retrieve-multiple")]
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult<RetrieveMultipleEntityResponse<T>>> RetrieveMultiple([FromBody] RetrieveMultipleEntityQuery<MovieDto> command)
         {
             var response = await _mediator.Send(command);

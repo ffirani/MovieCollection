@@ -6,6 +6,8 @@ using MovieCollection.Infrastructure.Repositories;
 
 namespace MovieCollection.API.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class GenreController : CrudController<GenreDto>
     {
         public GenreController(IMediator mediator) : base(mediator)

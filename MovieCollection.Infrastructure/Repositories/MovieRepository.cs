@@ -6,6 +6,7 @@ using MovieCollection.Infrastructure.Repositories.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,5 +23,12 @@ namespace MovieCollection.Infrastructure.Repositories
             return await base.CreateAsync(entity);
         }
 
+        public async override Task<Movie> GetByIdAsync(Guid id)
+        {
+            return _dbSet
+                .Include(m => m.Genres)
+                .Include(m => m.CastAndCrews)
+                .FirstOrDefault(m => m.Id == id);
+        }
     }
 }
