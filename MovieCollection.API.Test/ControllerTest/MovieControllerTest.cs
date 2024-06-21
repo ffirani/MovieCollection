@@ -8,7 +8,7 @@ using MovieCollection.API.Query;
 using MovieCollection.Domain.Models;
 using NSubstitute;
 
-namespace MovieCollection.API.Test
+namespace MovieCollection.API.Test.ControllerTest
 {
     public class MovieControllerTest
     {
@@ -40,7 +40,7 @@ namespace MovieCollection.API.Test
             Assert.IsType<CreateEntityResponse>(((OkObjectResult)response.Result).Value);
             CreateEntityResponse? responseValue = ((OkObjectResult)response.Result).Value as CreateEntityResponse;
             Assert.NotNull(responseValue);
-            Assert.NotEqual(responseValue.Id , Guid.Empty);
+            Assert.NotEqual(responseValue.Id, Guid.Empty);
         }
 
         [Fact]
@@ -118,7 +118,7 @@ namespace MovieCollection.API.Test
             //Assert
             Assert.NotNull(response);
             Assert.NotNull(response.Result);
-            Assert.Equal((int)System.Net.HttpStatusCode.OK,((OkObjectResult)response.Result).StatusCode);
+            Assert.Equal((int)System.Net.HttpStatusCode.OK, ((OkObjectResult)response.Result).StatusCode);
             var retrieveResult = ((OkObjectResult)response.Result).Value;
             Assert.IsType<RetrieveEntityResponse<MovieDto>>(retrieveResult);
             Assert.Equal(movieId, ((RetrieveEntityResponse<MovieDto>)retrieveResult).Entity.Id);
@@ -136,14 +136,14 @@ namespace MovieCollection.API.Test
             };
             IMediator mediator = Substitute.For<IMediator>();
             mediator.Send(Arg.Any<RetrieveMultipleEntityQuery<MovieDto>>())
-                .Returns(Task.FromResult(new RetrieveMultipleEntityResponse<MovieDto>() 
-                { 
-                    Entities= new List<MovieDto> { movie} 
+                .Returns(Task.FromResult(new RetrieveMultipleEntityResponse<MovieDto>()
+                {
+                    Entities = new List<MovieDto> { movie }
                 }));
             var movieController = new MovieController(mediator);
             var command = new RetrieveMultipleEntityQuery<MovieDto>()
             {
-                
+
             };
 
             //Action

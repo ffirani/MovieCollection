@@ -4,6 +4,7 @@ using MovieCollection.API.Commands.Base;
 using MovieCollection.API.Core;
 using MovieCollection.API.Mapper;
 using MovieCollection.Domain.Models.Base;
+using MovieCollection.Infrastructure.Error;
 using System.Reflection;
 
 namespace MovieCollection.API.Commands
@@ -23,7 +24,7 @@ namespace MovieCollection.API.Commands
 
             if (repository == null)
             {
-                throw new Exception($"Repository not found for type {nameof(TEntity)}");
+                throw new AppException("ERR3002",$"Repository not found for type {typeof(TEntity).Name}");
             }
 
             var entity = _context.Mapper.Map<T, TEntity>(request.Data);

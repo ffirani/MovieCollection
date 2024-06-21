@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using MovieCollection.API.Core;
 using MovieCollection.Domain.Models;
+using MovieCollection.Domain.Models.Base;
 using MovieCollection.Domain.Repository;
+using MovieCollection.Infrastructure.Error;
 
 namespace MovieCollection.API.Commands
 {
@@ -14,7 +16,12 @@ namespace MovieCollection.API.Commands
         }
         public async Task Handle(AssociateToSelectionCommand request, CancellationToken cancellationToken)
         {
-            var repository = (IMovieSelectionRepository)_context.RepositoryFactory.GetRepository<MovieSelection>();
+            var repository = _context.RepositoryFactory.GetRepository<MovieSelection>() as IMovieSelectionRepository;
+
+            if (repository == null)
+            {
+                throw new AppException("ERR3004", $"Repository not found for type {typeof(MovieSelection).Name}");
+            }
 
             await repository.AssociateMovieAsync(request.SelectionId, request.MovieId);
             
