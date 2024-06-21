@@ -44,6 +44,9 @@ namespace MovieCollection.API.Error
         }
         public async Task HandleExceptionAsync(HttpContext httpContext, Exception ex)
         {
+            httpContext.Response.ContentType = "application/json";
+            httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
             var isDebugMode = _config.GetValue<bool>("IsDebugMode");
             var response = new ErrorResponse();
             if (ex is AppException currentException)
@@ -57,17 +60,16 @@ namespace MovieCollection.API.Error
                 response.ErrorCode = "ERR1001";
                 response.Message = "Validation Error";
                 response.ErrorDetail = isDebugMode ? validationException.ToString() : string.Empty;
+                httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             }
             else
             {
                 response.ErrorCode = "ERR90000";
                 response.Message = "Unexpected error occured.";
                 response.ErrorDetail = isDebugMode ? ex.ToString():string.Empty;
+
             }
             
-            
-            httpContext.Response.ContentType = "application/json";
-            httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
         

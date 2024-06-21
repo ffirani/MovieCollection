@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using MovieCollection.API.Commands;
 using MovieCollection.API.Commands.Base;
 using MovieCollection.API.Commands.Dto;
+using MovieCollection.API.Error;
 using MovieCollection.API.Query;
 using MovieCollection.Domain.Models;
 using MovieCollection.Domain.Models.Base;
@@ -23,6 +24,9 @@ namespace MovieCollection.API.Controllers
             _mediator = mediator;
         }
 
+        [ProducesResponseType(typeof(CreateEntityResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Authorize]
         [Route("create")]
         [HttpPost]
@@ -32,6 +36,9 @@ namespace MovieCollection.API.Controllers
             return Ok(response);
         }
 
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Authorize]
         [Route("update")]
         [HttpPut]
@@ -41,6 +48,9 @@ namespace MovieCollection.API.Controllers
             return NoContent();
         }
 
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Authorize]
         [Route("delete")]
         [HttpDelete]
@@ -50,6 +60,9 @@ namespace MovieCollection.API.Controllers
             return NoContent();
         }
 
+        [ProducesResponseType(typeof(RetrieveEntityResponse<MovieDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Authorize]
         [Route("retrieve")]
         [HttpGet]
@@ -59,6 +72,9 @@ namespace MovieCollection.API.Controllers
             return Ok(reponse);
         }
 
+        [ProducesResponseType(typeof(RetrieveMultipleEntityResponse<MovieDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Authorize]
         [Route("retrieve-multiple")]
         [HttpGet]

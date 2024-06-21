@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieCollection.API.Commands;
 using MovieCollection.API.Commands.Dto;
+using MovieCollection.API.Error;
 using MovieCollection.API.Query;
 
 
@@ -19,6 +20,9 @@ namespace MovieCollection.API.Controllers
             _mediator = mediator;
         }
 
+        [ProducesResponseType(typeof(CreateEntityResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Authorize]
         [Route("create")]
         [HttpPost]
@@ -28,6 +32,9 @@ namespace MovieCollection.API.Controllers
             return Ok(response);
         }
 
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Authorize]
         [Route("update")]
         [HttpPut]
@@ -37,6 +44,9 @@ namespace MovieCollection.API.Controllers
             return Ok();
         }
 
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Authorize]
         [Route("delete")]
         [HttpDelete]
@@ -46,6 +56,9 @@ namespace MovieCollection.API.Controllers
             return Ok();
         }
 
+        [ProducesResponseType(typeof(RetrieveEntityResponse<MovieSelectionDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Authorize]
         [Route("retrieve")]
         [HttpGet]
@@ -55,6 +68,9 @@ namespace MovieCollection.API.Controllers
             return Ok();
         }
 
+        [ProducesResponseType(typeof(RetrieveMultipleEntityResponse<MovieSelectionDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Authorize]
         [Route("retrieve-multiple")]
         [HttpGet]
@@ -64,6 +80,9 @@ namespace MovieCollection.API.Controllers
             return Ok();
         }
 
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Route("associate")]
         [HttpPost]
         public async Task<ActionResult> AssociateToSelection(AssociateToSelectionCommand command)
@@ -72,6 +91,9 @@ namespace MovieCollection.API.Controllers
             return NoContent();
         }
 
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [Route("disassociate")]
         [HttpPost]
         public async Task<ActionResult> DisassociateFromSelection(DisassociateFromSelectionCommand command)
