@@ -11,15 +11,15 @@ using System.Threading.Tasks;
 
 namespace MovieCollection.Infrastructure.Repositories
 {
-    public class MovieRepository : Repository<Movie>
+    public class MovieRepository : Repository<Movie>,IMovieRepository
     {
         public MovieRepository(AppDbContext dbContext):base(dbContext) { }
 
-        public async override Task<Guid> Create(Movie entity)
+        public async override Task<Guid> CreateAsync(Movie entity)
         {
             _dbContext.Genres.AttachRange(entity.Genres);
             _dbContext.CastAndCrews.AttachRange(entity.CastAndCrews);
-            return await base.Create(entity);
+            return await base.CreateAsync(entity);
         }
 
     }

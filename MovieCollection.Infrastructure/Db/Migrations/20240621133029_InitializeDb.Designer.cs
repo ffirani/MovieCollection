@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieCollection.Infrastructure.Db;
 
@@ -11,9 +12,11 @@ using MovieCollection.Infrastructure.Db;
 namespace MovieCollection.Infrastructure.Db.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240621133029_InitializeDb")]
+    partial class InitializeDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,12 +84,6 @@ namespace MovieCollection.Infrastructure.Db.Migrations
 
                     b.HasAlternateKey("MovieId", "PersonId", "RoleId");
 
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.HasIndex("OwnerId");
-
                     b.HasIndex("PersonId");
 
                     b.HasIndex("RoleId");
@@ -98,9 +95,9 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("3c73e32a-9d87-4d99-a181-a1d57093eee5"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4974),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4528),
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4978),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4531),
                             MovieId = new Guid("1a84b59c-6d47-467f-9863-7ba645b45559"),
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
                             PersonId = new Guid("c507aabe-6d4b-41be-a7c4-c9dbcad7cafe"),
@@ -110,9 +107,9 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("00c4cc97-bea5-43dc-af36-470b18ad8d23"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4989),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4542),
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4992),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4545),
                             MovieId = new Guid("1a84b59c-6d47-467f-9863-7ba645b45559"),
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
                             PersonId = new Guid("6cf82d0c-8765-480c-95dd-f32edde21b74"),
@@ -159,12 +156,6 @@ namespace MovieCollection.Infrastructure.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.HasIndex("OwnerId");
-
                     b.ToTable("Genre", (string)null);
 
                     b.HasData(
@@ -172,9 +163,9 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("953ac4a5-83e5-4193-ba2e-2e8f9e0b5c82"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4417),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4257),
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4421),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4261),
                             Name = "Action",
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc")
                         },
@@ -182,9 +173,9 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("66b3d3b6-5f34-4ddd-a956-7131f23ba629"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4431),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4271),
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4434),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4274),
                             Name = "Adventure",
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc")
                         },
@@ -192,9 +183,9 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("16b3f007-ffb8-422d-9ff7-87f4876eba64"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4442),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4283),
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4444),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4286),
                             Name = "Comedy",
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc")
                         },
@@ -202,9 +193,9 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("0fbbacd4-b09b-43f7-9b7a-32e9a715e3db"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4452),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4294),
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4455),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4297),
                             Name = "Drama",
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc")
                         },
@@ -212,9 +203,9 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("f493129b-db9a-4584-af4b-a1ce8369d027"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4462),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4306),
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4465),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4309),
                             Name = "Horror",
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc")
                         },
@@ -222,9 +213,9 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("5c7aeeeb-c34a-4dc2-b337-24ece8eb3fad"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4717),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4317),
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4723),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4320),
                             Name = "Science fiction",
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc")
                         });
@@ -278,12 +269,6 @@ namespace MovieCollection.Infrastructure.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.HasIndex("OwnerId");
-
                     b.ToTable("Movie", (string)null);
 
                     b.HasData(
@@ -291,10 +276,10 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("1a84b59c-6d47-467f-9863-7ba645b45559"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4911),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4475),
                             ImdbRate = 0m,
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4917),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4481),
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
                             ReleaseData = new DateTime(1994, 6, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Shawshank Redemption"
@@ -337,9 +322,9 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("2e642c97-af61-458e-81ed-86f8ade9f61c"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4327),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4161),
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4335),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4170),
                             Name = "Director",
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc")
                         },
@@ -347,9 +332,9 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("dcfe1fce-7859-4de0-8432-08ac615a45a8"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4344),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4179),
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4348),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4184),
                             Name = "Actor",
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc")
                         },
@@ -357,9 +342,9 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("2c5bfc7b-34be-4519-9e79-142d3ac7a5aa"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4355),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4192),
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4359),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4196),
                             Name = "Actress",
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc")
                         },
@@ -367,9 +352,9 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("26c48d3b-c5f9-465c-aba2-e98c105e95ef"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4367),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4204),
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4371),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4209),
                             Name = "Writer",
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc")
                         });
@@ -420,12 +405,6 @@ namespace MovieCollection.Infrastructure.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.HasIndex("OwnerId");
-
                     b.ToTable("MovieSelection", (string)null);
                 });
 
@@ -470,13 +449,7 @@ namespace MovieCollection.Infrastructure.Db.Migrations
 
                     b.HasAlternateKey("MovieId", "MovieSelectionId");
 
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("ModifiedBy");
-
                     b.HasIndex("MovieSelectionId");
-
-                    b.HasIndex("OwnerId");
 
                     b.ToTable("MovieSelectionMovie", (string)null);
                 });
@@ -530,12 +503,6 @@ namespace MovieCollection.Infrastructure.Db.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.HasIndex("OwnerId");
-
                     b.ToTable("Person", (string)null);
 
                     b.HasData(
@@ -543,22 +510,22 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("c507aabe-6d4b-41be-a7c4-c9dbcad7cafe"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4814),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4384),
                             FirstName = "Tim",
                             LastName = "Robinson",
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4821),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4390),
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc")
                         },
                         new
                         {
                             Id = new Guid("6cf82d0c-8765-480c-95dd-f32edde21b74"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4830),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4401),
                             FirstName = "Morgan",
                             LastName = "Freeman",
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4835),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(4405),
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc")
                         });
                 });
@@ -604,10 +571,10 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         {
                             Id = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
                             CreatedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            CreatedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4073),
+                            CreatedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(3855),
                             LastName = "Admin",
                             ModifiedBy = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc"),
-                            ModifiedOn = new DateTime(2024, 6, 21, 17, 2, 19, 569, DateTimeKind.Local).AddTicks(4096),
+                            ModifiedOn = new DateTime(2024, 6, 21, 17, 0, 29, 130, DateTimeKind.Local).AddTicks(3883),
                             Name = "System",
                             OwnerId = new Guid("2da93c56-0722-4772-bcb3-2cb11b694adc")
                         });
@@ -630,28 +597,10 @@ namespace MovieCollection.Infrastructure.Db.Migrations
 
             modelBuilder.Entity("MovieCollection.Domain.Models.CastAndCrew", b =>
                 {
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("MovieCollection.Domain.Models.Movie", "Movie")
                         .WithMany("CastAndCrews")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MovieCollection.Domain.Models.Person", "Person")
@@ -673,83 +622,8 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("MovieCollection.Domain.Models.Genre", b =>
-                {
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MovieCollection.Domain.Models.Movie", b =>
-                {
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MovieCollection.Domain.Models.MovieSelection", b =>
-                {
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("MovieCollection.Domain.Models.MovieSelectionMovie", b =>
                 {
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("MovieCollection.Domain.Models.Movie", "Movie")
                         .WithMany()
                         .HasForeignKey("MovieId")
@@ -762,36 +636,9 @@ namespace MovieCollection.Infrastructure.Db.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Movie");
 
                     b.Navigation("MovieSelection");
-                });
-
-            modelBuilder.Entity("MovieCollection.Domain.Models.Person", b =>
-                {
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("ModifiedBy")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MovieCollection.Domain.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MovieCollection.Domain.Models.Movie", b =>

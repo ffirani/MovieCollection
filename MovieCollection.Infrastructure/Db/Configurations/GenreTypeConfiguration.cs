@@ -14,7 +14,6 @@ namespace MovieCollection.Infrastructure.Db.Configurations
     {
         public override void Configure(EntityTypeBuilder<Genre> genreConfiguration)
         {
-            genreConfiguration.Ignore("UpdatedProperties");
             genreConfiguration.ToTable("Genre");
 
             genreConfiguration.HasKey(m => m.Id);

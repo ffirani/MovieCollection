@@ -15,7 +15,7 @@ namespace MovieCollection.API.Query
         public async Task<RetrieveEntityResponse<T>> Handle(RetrieveEntityQuery<T> request, CancellationToken cancellationToken)
         {
             var repository = _executionContext.RepositoryFactory.GetRepository<TEntity>();
-            var entity = await repository.GetById(request.Id);
+            var entity = await repository.GetByIdAsync(request.Id);
             var dto = _executionContext.Mapper.Map<TEntity,T>(entity);
 
             return new RetrieveEntityResponse<T> { Entity = dto };

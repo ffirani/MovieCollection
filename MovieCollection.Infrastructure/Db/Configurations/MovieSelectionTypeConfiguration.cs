@@ -15,7 +15,7 @@ namespace MovieCollection.Infrastructure.Db.Configurations
         public override void Configure(EntityTypeBuilder<MovieSelection> movieSelectionConfiguration)
         {
             movieSelectionConfiguration.ToTable("MovieSelection");
-            movieSelectionConfiguration.Ignore("UpdatedProperties");
+
             movieSelectionConfiguration.HasKey(m => m.Id);
 
             movieSelectionConfiguration

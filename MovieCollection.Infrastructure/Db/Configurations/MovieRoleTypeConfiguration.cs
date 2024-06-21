@@ -15,7 +15,6 @@ namespace MovieCollection.Infrastructure.Db.Configurations
     {
         public override void Configure(EntityTypeBuilder<MovieRole> movieRoleConfiguration) 
         {
-            movieRoleConfiguration.Ignore("UpdatedProperties");
             movieRoleConfiguration
                 .HasKey(mr => mr.Id);
             movieRoleConfiguration

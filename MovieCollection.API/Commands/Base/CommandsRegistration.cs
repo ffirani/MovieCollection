@@ -5,7 +5,7 @@ using MovieCollection.Domain.Models;
 
 namespace MovieCollection.API.Commands.Base
 {
-    public static class CRUDCommandsRegistration
+    public static class CommandsRegistration
     {
         public static IServiceCollection AddCRUDCommands(this IServiceCollection services)
         {
@@ -18,6 +18,7 @@ namespace MovieCollection.API.Commands.Base
             services.AddTransient<IRequestHandler<UpdateEntityCommand<MovieSelectionDto>>, UpdateEntityCommandHandler<MovieSelectionDto, MovieSelection>>();
             services.AddTransient<IRequestHandler<DeleteEntityCommand<MovieSelectionDto>>, DeleteEntityCommandHandler<MovieSelectionDto, MovieSelection>>();
             services.AddTransient<IRequestHandler<RetrieveEntityQuery<MovieSelectionDto>, RetrieveEntityResponse<MovieSelectionDto>>, RetrieveEntityQueryHandler<MovieSelectionDto, MovieSelection>>();
+            services.AddTransient<IRequestHandler<AssociateToSelectionCommand>, AssociateToSelectionCommandHandler>();
 
             services.AddTransient<IRequestHandler<CreateEntityCommand<MovieRoleDto>, CreateEntityResponse>, CreateEntityCommandHandler<MovieRoleDto, MovieRole>>();
             services.AddTransient<IRequestHandler<UpdateEntityCommand<MovieRoleDto>>, UpdateEntityCommandHandler<MovieRoleDto, MovieRole>>();

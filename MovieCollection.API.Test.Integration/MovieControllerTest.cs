@@ -30,7 +30,7 @@ namespace MovieCollection.API.Test.Integration
             _dbContext = dbFixture.Db;
         }
         [Fact]
-        public async void CreateMovie_valid_movie_dto_return_id()
+        public async void CreateMovie_valid_movie_dto_created_in_db()
         {
             //Arange
             var movie = new MovieDto { Title = "Test Movie 15",ReleaseData=new DateTime(2012,1,1) };
@@ -52,7 +52,7 @@ namespace MovieCollection.API.Test.Integration
 
         [Theory]
         [MemberData(nameof(Movies))]
-        public async void UpdateMovie_change_movie_dto_title_no_exception(string title, decimal imdbRate, DateTime releaseDate)
+        public async void UpdateMovie_change_movie_dto_properties_applied_in_db(string title, decimal imdbRate, DateTime releaseDate)
         {
             //Arange
             Movie movie = CreateMovieEntityInDb(title, imdbRate, releaseDate);

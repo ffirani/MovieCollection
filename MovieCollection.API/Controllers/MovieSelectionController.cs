@@ -66,16 +66,18 @@ namespace MovieCollection.API.Controllers
 
         [Route("associate")]
         [HttpPost]
-        public Task<ActionResult> AssociateToCollection(AssociateToSelectioCommand command)
+        public async Task<ActionResult> AssociateToSelection(AssociateToSelectionCommand command)
         {
-            throw new NotImplementedException();
+            await _mediator.Send(command);
+            return NoContent();
         }
 
         [Route("disassociate")]
         [HttpPost]
-        public Task<ActionResult> DisassociateFromCollection(DisassociateFromSelectionCommand command)
+        public async Task<ActionResult> DisassociateFromSelection(DisassociateFromSelectionCommand command)
         {
-            throw new NotImplementedException();
+            await _mediator.Send(command);
+            return NoContent();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace MovieCollection.API.Commands
             }
 
             var entity = _context.Mapper.Map<T, TEntity>(request.Data);
-            await repository.Update(entity);
+            await repository.UpdateAsync(entity);
         }
     }
 }

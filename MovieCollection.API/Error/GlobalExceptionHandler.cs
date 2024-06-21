@@ -3,6 +3,7 @@ using Azure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Client;
+using MovieCollection.Infrastructure.Error;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Text.Json;
@@ -53,13 +54,13 @@ namespace MovieCollection.API.Error
             }
             else if (ex is FluentValidation.ValidationException validationException)
             {
-                response.ErrorCode = "ERR5001";
+                response.ErrorCode = "ERR1001";
                 response.Message = "Validation Error";
                 response.ErrorDetail = isDebugMode ? validationException.ToString() : string.Empty;
             }
             else
             {
-                response.ErrorCode = "ERR10000";
+                response.ErrorCode = "ERR90000";
                 response.Message = "Unexpected error occured.";
                 response.ErrorDetail = isDebugMode ? ex.ToString():string.Empty;
             }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MovieCollection.Domain.Repository
 {
-    internal interface IMovieRoleRepository : IRepository<MovieRole>
+    public interface IMovieRoleRepository : IRepository<MovieRole>
     {
     }
 }

@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace MovieCollection.Infrastructure.Repositories
 {
-    internal class MovieRoleRepository : Repository<MovieRole>,IMovieRoleRepository
+    public class GenreRepository : Repository<Genre>, IGenreRepository
     {
-        public MovieRoleRepository(AppDbContext dbContext) : base(dbContext)
+        public GenreRepository(AppDbContext dbContext) : base(dbContext)
         {
         }
     }

@@ -20,14 +20,14 @@ namespace MovieCollection.Infrastructure.Repositories.Base
             _dbSet = _dbContext.Set<TEntity>();
         }
 
-        public async virtual Task<Guid> Create(TEntity entity)
+        public async virtual Task<Guid> CreateAsync(TEntity entity)
         {
             _dbSet.Add(entity);
             await SaveAsync();
             return entity.Id;
         }
 
-        public async virtual Task Delete(Guid id)
+        public async virtual Task DeleteAsync(Guid id)
         {
             var entityToDelete = (TEntity)Activator.CreateInstance(typeof(TEntity));
             entityToDelete.Id = id;
@@ -36,7 +36,7 @@ namespace MovieCollection.Infrastructure.Repositories.Base
             await SaveAsync();
         }
 
-        public async virtual Task Update(TEntity entity)
+        public async virtual Task UpdateAsync(TEntity entity)
         {
             _dbContext.Set<TEntity>().Attach(entity);
 
@@ -47,12 +47,12 @@ namespace MovieCollection.Infrastructure.Repositories.Base
             await this.SaveAsync();
         }
 
-        public async virtual Task<TEntity> GetById(Guid id)
+        public async virtual Task<TEntity> GetByIdAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }
 
-        protected async Task SaveAsync()
+        protected async virtual Task SaveAsync()
         {
             await _dbContext.SaveChangesAsync();
         }

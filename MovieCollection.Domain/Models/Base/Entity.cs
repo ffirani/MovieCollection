@@ -10,6 +10,9 @@ namespace MovieCollection.Domain.Models.Base
     {
         public Guid Id { get ; set ; }
 
+        private Guid _ownerId;
+        public Guid OwnerId { get => _ownerId; set => SetProperty(ref _ownerId, value, nameof(OwnerId)); }
+
         private Guid _createdBy;
         public Guid CreatedBy { get => _createdBy; set => SetProperty(ref _createdBy, value, nameof(CreatedBy)); }
 
@@ -21,9 +24,6 @@ namespace MovieCollection.Domain.Models.Base
 
         private DateTime _modifiedOn;
         public DateTime ModifiedOn { get => _modifiedOn; set => SetProperty(ref _modifiedOn, value, nameof(ModifiedOn)); }
-
-        private Guid _ownerId;
-        public Guid OwnerId { get => _ownerId; set => SetProperty(ref _ownerId, value, nameof(OwnerId)); }
 
         public Dictionary<string, object> UpdatedProperties { get; private set; } = new Dictionary<string, object>();
 

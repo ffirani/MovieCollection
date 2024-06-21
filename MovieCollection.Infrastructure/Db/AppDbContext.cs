@@ -15,11 +15,15 @@ namespace MovieCollection.Infrastructure.Db
     public class AppDbContext : DbContext
     {
         private IIdentityService _identityService;
+
+        public DbSet<User> Users { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieSelection> MovieSelections { get; set; }
         public DbSet<MovieRole> MovieRoles { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<CastAndCrew> CastAndCrews { get; set; }
+        public DbSet<MovieSelectionMovie> MovieSelectionMovies { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { }
@@ -30,17 +34,23 @@ namespace MovieCollection.Infrastructure.Db
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().Ignore("UpdatedProperties");
             modelBuilder.Entity<Movie>().Ignore("UpdatedProperties");
             modelBuilder.Entity<MovieRole>().Ignore("UpdatedProperties");
             modelBuilder.Entity<Genre>().Ignore("UpdatedProperties");
             modelBuilder.Entity<Person>().Ignore("UpdatedProperties");
             modelBuilder.Entity<CastAndCrew>().Ignore("UpdatedProperties");
+            modelBuilder.Entity<MovieSelection>().Ignore("UpdatedProperties");
+            modelBuilder.Entity<MovieSelectionMovie>().Ignore("UpdatedProperties");
 
             modelBuilder.ApplyConfiguration(new MovieTypeConfiguration());
             modelBuilder.ApplyConfiguration(new MovieSelectionTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PersonTypeConfiguration());
             modelBuilder.ApplyConfiguration(new GenreTypeConfiguration());
             modelBuilder.ApplyConfiguration(new CastAndCrewTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MovieRoleTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MovieSelectionMovieTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
             modelBuilder.CreateSeeds();
         }
         public override int SaveChanges()

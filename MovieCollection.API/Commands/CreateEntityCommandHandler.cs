@@ -28,7 +28,7 @@ namespace MovieCollection.API.Commands
             }
 
             var entity = _context.Mapper.Map<T, TEntity>(request.Data);
-            var id = await repository.Create(entity);
+            var id = await repository.CreateAsync(entity);
             return new CreateEntityResponse(id);
         }
     }

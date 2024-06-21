@@ -31,7 +31,7 @@ namespace MovieCollection.API.Test
 
             await handler.Handle(command, CancellationToken.None);
 
-            await _movieRepository.Received().Delete(movieId);
+            await _movieRepository.Received().DeleteAsync(movieId);
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace MovieCollection.API.Test
         {
             var userId = Guid.NewGuid();
             _movieRepository = Substitute.For<IMovieRepository>();
-            _movieRepository.Delete(userId);
+            _movieRepository.DeleteAsync(userId);
             var logger = Substitute.For<ILogger>();
             var repositoryFactory = Substitute.For<IRepositoryFactory>();
             repositoryFactory.GetRepository(Arg.Any<Type>()).Returns(_movieRepository);

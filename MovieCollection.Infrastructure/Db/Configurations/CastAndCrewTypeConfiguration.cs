@@ -14,9 +14,11 @@ namespace MovieCollection.Infrastructure.Db.Configurations
     {
         public override void Configure(EntityTypeBuilder<CastAndCrew> castAndCrewConfiguration)
         {
-            castAndCrewConfiguration.Ignore("UpdatedProperties");
             castAndCrewConfiguration
-                .HasKey(cc => new { cc.MovieId, cc.PersonId ,cc.RoleId });
+                .HasKey(cc => new { cc.Id });
+
+            castAndCrewConfiguration
+                .HasAlternateKey(cc => new { cc.MovieId, cc.PersonId, cc.RoleId });
 
             castAndCrewConfiguration
                 .HasOne(cc => cc.Movie)

@@ -15,7 +15,7 @@ namespace MovieCollection.Infrastructure.Db.Configurations
         public override void Configure(EntityTypeBuilder<Person> personConfiguration)
         {
             personConfiguration.ToTable("Person");
-            personConfiguration.Ignore("UpdatedProperties");
+
             personConfiguration.HasKey(m => m.Id);
 
             personConfiguration

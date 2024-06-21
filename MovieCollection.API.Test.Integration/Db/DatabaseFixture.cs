@@ -28,8 +28,16 @@ namespace MovieCollection.API.Test.Integration.Db
 
         public void CleanDatabase()
         {
-            Db.Movies.RemoveRange(Db.Movies);
-            Db.SaveChanges();
+            try
+            {
+                Db.Movies.RemoveRange(Db.Movies);
+                Db.MovieSelections.RemoveRange(Db.MovieSelections);
+                Db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                
+            }
         }
 
         public void Dispose()

@@ -24,7 +24,7 @@ namespace MovieCollection.API.Commands
                 throw new Exception($"Repository not found for type {nameof(TEntity)}");
             }
 
-            await repository.Delete(request.Id);
+            await repository.DeleteAsync(request.Id);
         }
     }
 }

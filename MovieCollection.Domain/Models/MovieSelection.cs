@@ -15,6 +15,5 @@ namespace MovieCollection.Domain.Models
         private string _description;
         public string Description { get=>_description; set => SetProperty<string>(ref _description, value, nameof(Description)); }
 
-        public List<Movie> Movies { get; set; } 
     }
 }

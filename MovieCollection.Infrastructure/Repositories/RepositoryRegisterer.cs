@@ -11,7 +11,7 @@ namespace MovieCollection.Infrastructure.Repositories
             services.AddTransient<IRepository<Movie>, MovieRepository>();
             services.AddTransient<IRepository<MovieSelection>, MovieSelectionRepository>();
             services.AddTransient<IRepository<MovieRole>, MovieRoleRepository>();
-            services.AddTransient<IRepository<Movie>, MovieRepository>();
+            services.AddTransient<IRepository<Genre>, GenreRepository>();
             return services;
         }
     }

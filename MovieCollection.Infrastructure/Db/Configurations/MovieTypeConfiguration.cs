@@ -38,6 +38,7 @@ namespace MovieCollection.Infrastructure.Db.Configurations
                 .HasMany(m => m.Genres)
                 .WithMany(g => g.Movies);
 
+
             base.Configure(movieConfiguration);
         }
     }

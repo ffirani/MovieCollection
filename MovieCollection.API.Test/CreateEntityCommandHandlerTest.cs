@@ -35,7 +35,7 @@ namespace MovieCollection.API.Test
 
             var response = await handler.Handle(command, CancellationToken.None);
 
-            Assert.Equal(response.Id, movieId);
+            Assert.Equal(movieId,response.Id);
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace MovieCollection.API.Test
         {
             var userId = Guid.NewGuid();
             var movieRepository = Substitute.For<IMovieRepository>();
-            movieRepository.Create(Arg.Any<Movie>()).Returns(movieId);
+            movieRepository.CreateAsync(Arg.Any<Movie>()).Returns(movieId);
             var logger = Substitute.For<ILogger>();
             var repositoryFactory = Substitute.For<IRepositoryFactory>();
             repositoryFactory.GetRepository(Arg.Any<Type>()).Returns(movieRepository);

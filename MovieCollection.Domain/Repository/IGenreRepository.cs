@@ -8,9 +8,7 @@ using System.Threading.Tasks;
 
 namespace MovieCollection.Domain.Repository
 {
-    public interface IMovieSelectionRepository : IRepository<MovieSelection>
+    public interface IGenreRepository : IRepository<Genre>
     {
-        Task AssociateMovieAsync(Guid selectionId, Guid movieId);
-        Task DisassociateMovieAsync(Guid selectionId, Guid movieId);
     }
 }
