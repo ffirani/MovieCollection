@@ -4,8 +4,8 @@ namespace MovieCollection.API.Commands.Dto
 {
     public class CastAndCrewDto
     {
-        public required MovieRoleDto Role { get; set; }
-        public required PersonDto Person { get; set; }
-        public required MovieDto Movie { get; set; }
+        public required Guid RoleId { get; set; }
+        public required Guid PersonId { get; set; }
+        public required Guid MovieId { get; set; }
     }
 }
