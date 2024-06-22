@@ -1,8 +1,8 @@
 ﻿namespace MovieCollection.API.Query
 {
-    public class RetrieveMultipleEntityResponse<T>
+    public class RetrieveMultipleEntityResponse<TView>
     {
-        public IEnumerable<T> Entities { get; set; }
+        public IEnumerable<TView> Entities { get; set; }
         public int TotalNumber { get; set; }
 
     }

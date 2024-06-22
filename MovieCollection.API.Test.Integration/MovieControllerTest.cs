@@ -134,11 +134,11 @@ namespace MovieCollection.API.Test.Integration
             response.EnsureSuccessStatusCode();
             var retrieveEntity = await response.Content.ReadFromJsonAsync<RetrieveEntityResponse<Movie>>();
             Assert.NotNull(retrieveEntity);
-            Assert.NotNull(retrieveEntity.Entity);
-            Assert.True(retrieveEntity.Entity.Id == movie.Id && 
-                        retrieveEntity.Entity.Title == title &&
-                        retrieveEntity.Entity.ImdbRate == imdbRate &&
-                        retrieveEntity.Entity.ReleaseData == releaseDate) ;
+            Assert.NotNull(retrieveEntity.View);
+            Assert.True(retrieveEntity.View.Id == movie.Id && 
+                        retrieveEntity.View.Title == title &&
+                        retrieveEntity.View.ImdbRate == imdbRate &&
+                        retrieveEntity.View.ReleaseData == releaseDate) ;
         }
 
         private Movie CreateMovieEntityInDb(string title,decimal imdbRate,DateTime datetime)

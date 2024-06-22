@@ -2,7 +2,7 @@
 
 namespace MovieCollection.API.Query
 {
-    public class RetrieveEntityQuery<T>:IRequest<RetrieveEntityResponse<T>>
+    public class RetrieveEntityQuery<TView>:IRequest<RetrieveEntityResponse<TView>>
     {
         public Guid Id { get; set; }
     }

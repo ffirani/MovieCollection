@@ -1,24 +1,29 @@
 ﻿using MediatR;
 using MovieCollection.API.Core;
 using MovieCollection.Domain.Models.Base;
+using MovieCollection.Infrastructure.Error;
+using MovieCollection.Query.Db.Base;
+using MovieCollection.Query.View.Base;
+using System.Threading;
 
 namespace MovieCollection.API.Query
 {
-    public class RetrieveEntityQueryHandler<T, TEntity> : IRequestHandler<RetrieveEntityQuery<T>, RetrieveEntityResponse<T>> where T : class where TEntity : Entity
+    public class RetrieveEntityQueryHandler<TView> : IRequestHandler<RetrieveEntityQuery<TView>, RetrieveEntityResponse<TView>> where TView:BaseView
     {
-        private readonly IExecutionContext _executionContext;
-
-        public RetrieveEntityQueryHandler(IExecutionContext executionContext) 
+        private IReadOnlyDbContext _dbContext;
+        public RetrieveEntityQueryHandler(IReadOnlyDbContext dbContext) 
         {
-            _executionContext = executionContext;
+            _dbContext = dbContext;
         }
-        public async Task<RetrieveEntityResponse<T>> Handle(RetrieveEntityQuery<T> request, CancellationToken cancellationToken)
-        {
-            var repository = _executionContext.RepositoryFactory.GetRepository<TEntity>();
-            var entity = await repository.GetByIdAsync(request.Id);
-            var dto = _executionContext.Mapper.Map<TEntity,T>(entity);
 
-            return new RetrieveEntityResponse<T> { Entity = dto };
+        public async Task<RetrieveEntityResponse<TView>> Handle(RetrieveEntityQuery<TView> request, CancellationToken cancellationToken)
+        {
+            var view = _dbContext.Query<TView>().FirstOrDefault(v=>v.Id == request.Id);
+            if (view == null)
+            {
+                throw new AppException("ERR2001", $"View with id {request.Id} does not exist.");
+            }
+            return new RetrieveEntityResponse<TView> { View = view };
         }
     }
 }

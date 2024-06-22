@@ -1,7 +1,7 @@
 ﻿namespace MovieCollection.API.Query
 {
-    public class RetrieveEntityResponse<T>
+    public class RetrieveEntityResponse<TView>
     {
-        public T Entity { get; set; }
+        public TView View { get; set; }
     }
 }

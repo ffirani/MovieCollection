@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MovieCollection.Domain\MovieCollection.Domain.csproj" />
     <ProjectReference Include="..\MovieCollection.Infrastructure\MovieCollection.Infrastructure.csproj" />
+    <ProjectReference Include="..\MovieCollection.Query\MovieCollection.Query.csproj" />
   </ItemGroup>
 
 </Project>

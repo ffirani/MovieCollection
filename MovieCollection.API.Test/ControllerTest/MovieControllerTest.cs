@@ -105,7 +105,7 @@ namespace MovieCollection.API.Test.ControllerTest
             };
             IMediator mediator = Substitute.For<IMediator>();
             mediator.Send(Arg.Any<RetrieveEntityQuery<MovieDto>>())
-                .Returns(Task.FromResult(new RetrieveEntityResponse<MovieDto>() { Entity = movie }));
+                .Returns(Task.FromResult(new RetrieveEntityResponse<MovieDto>() { View = movie }));
             var movieController = new MovieController(mediator);
             var command = new RetrieveEntityQuery<MovieDto>()
             {
@@ -121,7 +121,7 @@ namespace MovieCollection.API.Test.ControllerTest
             Assert.Equal((int)System.Net.HttpStatusCode.OK, ((OkObjectResult)response.Result).StatusCode);
             var retrieveResult = ((OkObjectResult)response.Result).Value;
             Assert.IsType<RetrieveEntityResponse<MovieDto>>(retrieveResult);
-            Assert.Equal(movieId, ((RetrieveEntityResponse<MovieDto>)retrieveResult).Entity.Id);
+            Assert.Equal(movieId, ((RetrieveEntityResponse<MovieDto>)retrieveResult).View.Id);
         }
         [Fact]
         public async void RetrieveMultipleMovie_retrieve_movie_with_specific_name_successful()
