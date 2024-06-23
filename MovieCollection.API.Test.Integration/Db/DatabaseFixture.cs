@@ -16,7 +16,7 @@ namespace MovieCollection.API.Test.Integration.Db
         public DatabaseFixture() 
         {
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseSqlServer("Server=trainingv9;Database=MovieCollectionDb;Integrated Security=SSPI;TrustServerCertificate=true")
+                .UseSqlServer("Server=tcp:127.0.0.1,1433;Database=MovieCollectionDb;User Id=sa;Password=Passw0rd;TrustServerCertificate=true")
                 .Options;
 
             var identityFake = Substitute.For<IIdentityService>();

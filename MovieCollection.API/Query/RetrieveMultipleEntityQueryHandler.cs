@@ -20,11 +20,17 @@ namespace MovieCollection.API.Query
         }
         public async Task<RetrieveMultipleEntityResponse<TView>> Handle(RetrieveMultipleEntityQuery<TView> request, CancellationToken cancellationToken)
         {
-            int currentPageSize = request.PageSize;
-            if (currentPageSize <= 0) 
+            int pageSize = request.PageSize;
+            if (pageSize <= 0)
             {
-                currentPageSize = 50; 
+                pageSize = 50;
             }
+            int pageIndex = request.PageIndex;
+            if (pageIndex <= 0)
+            {
+                pageIndex = 1;
+            }
+
             if (request == null)
             {
                 throw new ArgumentNullException("Request can not be null for RetrieveMultipleEntityQueryHandler");
@@ -34,8 +40,20 @@ namespace MovieCollection.API.Query
                 throw new Exception("Expression must not be null");
             }
             var expression = _queryParser.Pars(request.Expression);
-            var result = await _dbContext.Query<TView>().Where(expression).Skip(request.PageIndex).Take(currentPageSize).ToListAsync();
-            var reponse = new RetrieveMultipleEntityResponse<TView>() { Entities = result };
+            var result = await _dbContext
+                .Query<TView>()
+                .Where(expression)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            var totalCount = await _dbContext
+                .Query<TView>()
+                .CountAsync(expression);
+            var reponse = new RetrieveMultipleEntityResponse<TView>()
+            {
+                Entities = result,
+                TotalNumber = totalCount
+            };
             return reponse;
         }
     }

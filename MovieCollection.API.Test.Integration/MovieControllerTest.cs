@@ -158,7 +158,7 @@ namespace MovieCollection.API.Test.Integration
                     Conditions = new[]
                     {
                         new QueryCondition(nameof(MovieView.Title),ConditionOperator.Contain,title),
-                        new QueryCondition(nameof(MovieView.ImdbRate),ConditionOperator.GreateThan,6)
+                        new QueryCondition(nameof(MovieView.ImdbRate),ConditionOperator.GreateThan,5)
                     }
                 }
             };
