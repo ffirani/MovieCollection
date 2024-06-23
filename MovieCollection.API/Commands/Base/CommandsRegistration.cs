@@ -13,7 +13,8 @@ namespace MovieCollection.API.Commands.Base
             services.AddTransient<IRequestHandler<CreateEntityCommand<MovieDto>,CreateEntityResponse>, CreateEntityCommandHandler<MovieDto,Movie>>();
             services.AddTransient<IRequestHandler<UpdateEntityCommand<MovieDto>>, UpdateEntityCommandHandler<MovieDto, Movie>>();
             services.AddTransient<IRequestHandler<DeleteEntityCommand<MovieDto>>, DeleteEntityCommandHandler<MovieDto, Movie>>();
-            services.AddTransient<IRequestHandler<RetrieveEntityQuery<MovieView>, RetrieveEntityResponse<MovieView>>, RetrieveEntityQueryHandler<MovieView>>();
+            
+            
 
             services.AddTransient<IRequestHandler<CreateEntityCommand<MovieSelectionDto>, CreateEntityResponse>, CreateEntityCommandHandler<MovieSelectionDto, MovieSelection>>();
             services.AddTransient<IRequestHandler<UpdateEntityCommand<MovieSelectionDto>>, UpdateEntityCommandHandler<MovieSelectionDto, MovieSelection>>();

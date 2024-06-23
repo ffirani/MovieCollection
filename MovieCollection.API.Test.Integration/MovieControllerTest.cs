@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Expressions;
 using MovieCollection.API.Commands;
 using MovieCollection.API.Commands.Dto;
 using MovieCollection.API.Query;
@@ -9,6 +10,7 @@ using MovieCollection.API.Test.Integration.Auth;
 using MovieCollection.API.Test.Integration.Db;
 using MovieCollection.Domain.Models;
 using MovieCollection.Infrastructure.Db;
+using MovieCollection.Query.Parser;
 using MovieCollection.Query.View;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
@@ -111,7 +113,7 @@ namespace MovieCollection.API.Test.Integration
 
         [Theory]
         [MemberData(nameof(Movies))]
-        public async void RetrieveMovie_movie_dto_no_exception(string title, decimal imdbRate, DateTime releaseDate)
+        public async void RetrieveMovie_movie_view_no_exception(string title, decimal imdbRate, DateTime releaseDate)
         {
             //Arange
             var movie = CreateMovieEntityInDb(title, imdbRate, releaseDate);
@@ -140,6 +142,52 @@ namespace MovieCollection.API.Test.Integration
                         retrieveEntity.View.Title == title &&
                         retrieveEntity.View.ImdbRate == imdbRate &&
                         retrieveEntity.View.ReleaseData == releaseDate) ;
+        }
+
+        [Theory]
+        [MemberData(nameof(Movies))]
+        public async void RetrieveMultiple_search_movie_wih_specific_title_return_one_movie(string title, decimal imdbRate, DateTime releaseDate)
+        {
+            //Arange
+            var movie = CreateMovieEntityInDb(title, imdbRate, releaseDate);
+
+            var query = new MovieCollection.Query.Parser.QueryExpression
+            {
+                Filter = new QueryFilter(LogicalOperator.And)
+                {
+                    Conditions = new[]
+                    {
+                        new QueryCondition(nameof(MovieView.Title),ConditionOperator.Contain,title),
+                        new QueryCondition(nameof(MovieView.ImdbRate),ConditionOperator.GreateThan,6)
+                    }
+                }
+            };
+            var retrieveEntityQuery = new RetrieveMultipleEntityQuery<MovieView>() 
+            {
+                Expression = query,
+                PageIndex = 1,
+                PageSize = 10
+            };
+            var commandSerialized = JsonConvert.SerializeObject(retrieveEntityQuery);
+            var content = new StringContent(commandSerialized, UTF8Encoding.UTF8, "application/json");
+            var client = _apiFactory.CreateClient();
+            var token = TokenHelper.GenerateJwtToken(_userId.ToString(), "Admin");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage request = new HttpRequestMessage
+            {
+                Content = content,
+                Method = HttpMethod.Post,
+                RequestUri = new Uri("/api/movie/retrieve-multiple", UriKind.Relative)
+            };
+            //Act
+            var response = await client.SendAsync(request);
+
+            //Assert
+            response.EnsureSuccessStatusCode();
+            var retrieveEntity = await response.Content.ReadFromJsonAsync<RetrieveMultipleEntityResponse<MovieView>>();
+            Assert.NotNull(retrieveEntity);
+            Assert.NotNull(retrieveEntity.Entities);
+            Assert.Single(retrieveEntity.Entities);
         }
 
         private Movie CreateMovieEntityInDb(string title,decimal imdbRate,DateTime datetime)

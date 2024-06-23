@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MovieCollection.API\MovieCollection.API.csproj" />
+    <ProjectReference Include="..\MovieCollection.Query\MovieCollection.Query.csproj" />
   </ItemGroup>
 
 </Project>

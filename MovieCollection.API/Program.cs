@@ -32,6 +32,7 @@ using MovieCollection.API.Error;
 using MovieCollection.API.Security;
 using System.Security.Claims;
 using MovieCollection.Query.Db.Configurations;
+using MovieCollection.API.Query;
 
 namespace MovieCollection.API
 {
@@ -131,6 +132,7 @@ namespace MovieCollection.API
                 builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(Program)));
                 builder.Services.AddHealthChecks();
                 builder.Services.AddTransient<GlobalExceptionHandler>();
+                builder.Services.AddQueries();
 
                 var app = builder.Build();
 
