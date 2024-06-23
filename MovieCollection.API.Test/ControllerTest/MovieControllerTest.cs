@@ -6,6 +6,7 @@ using MovieCollection.API.Commands.Dto;
 using MovieCollection.API.Controllers;
 using MovieCollection.API.Query;
 using MovieCollection.Domain.Models;
+using MovieCollection.Query.View;
 using NSubstitute;
 
 namespace MovieCollection.API.Test.ControllerTest
@@ -97,17 +98,17 @@ namespace MovieCollection.API.Test.ControllerTest
         {
             //Arange
             var movieId = new Guid("2D625F09-5807-4FB7-86B3-08DC8D7E586E");
-            var movie = new MovieDto
+            var movie = new MovieView
             {
                 Id = new Guid("2D625F09-5807-4FB7-86B3-08DC8D7E586E"),
                 Title = "Movie 1",
                 ReleaseData = new DateTime(2020, 11, 1),
             };
             IMediator mediator = Substitute.For<IMediator>();
-            mediator.Send(Arg.Any<RetrieveEntityQuery<MovieDto>>())
-                .Returns(Task.FromResult(new RetrieveEntityResponse<MovieDto>() { View = movie }));
+            mediator.Send(Arg.Any<RetrieveEntityQuery<MovieView>>())
+                .Returns(Task.FromResult(new RetrieveEntityResponse<MovieView>() { View = movie }));
             var movieController = new MovieController(mediator);
-            var command = new RetrieveEntityQuery<MovieDto>()
+            var command = new RetrieveEntityQuery<MovieView>()
             {
                 Id = movieId
             };
@@ -120,28 +121,28 @@ namespace MovieCollection.API.Test.ControllerTest
             Assert.NotNull(response.Result);
             Assert.Equal((int)System.Net.HttpStatusCode.OK, ((OkObjectResult)response.Result).StatusCode);
             var retrieveResult = ((OkObjectResult)response.Result).Value;
-            Assert.IsType<RetrieveEntityResponse<MovieDto>>(retrieveResult);
-            Assert.Equal(movieId, ((RetrieveEntityResponse<MovieDto>)retrieveResult).View.Id);
+            Assert.IsType<RetrieveEntityResponse<MovieView>>(retrieveResult);
+            Assert.Equal(movieId, ((RetrieveEntityResponse<MovieView>)retrieveResult).View.Id);
         }
         [Fact]
         public async void RetrieveMultipleMovie_retrieve_movie_with_specific_name_successful()
         {
             //Arange
             var movieId = new Guid("2D625F09-5807-4FB7-86B3-08DC8D7E586E");
-            var movie = new MovieDto
+            var movie = new MovieView
             {
                 Id = new Guid("2D625F09-5807-4FB7-86B3-08DC8D7E586E"),
                 Title = "Movie 1",
                 ReleaseData = new DateTime(2020, 11, 1),
             };
             IMediator mediator = Substitute.For<IMediator>();
-            mediator.Send(Arg.Any<RetrieveMultipleEntityQuery<MovieDto>>())
-                .Returns(Task.FromResult(new RetrieveMultipleEntityResponse<MovieDto>()
+            mediator.Send(Arg.Any<RetrieveMultipleEntityQuery<MovieView>>())
+                .Returns(Task.FromResult(new RetrieveMultipleEntityResponse<MovieView>()
                 {
-                    Entities = new List<MovieDto> { movie }
+                    Entities = new List<MovieView> { movie }
                 }));
             var movieController = new MovieController(mediator);
-            var command = new RetrieveMultipleEntityQuery<MovieDto>()
+            var command = new RetrieveMultipleEntityQuery<MovieView>()
             {
 
             };

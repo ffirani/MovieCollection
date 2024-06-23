@@ -6,13 +6,15 @@ using MovieCollection.API.Commands.Dto;
 using MovieCollection.API.Controllers.Base;
 using MovieCollection.API.Error;
 using MovieCollection.API.Query;
+using MovieCollection.Domain.Models;
+using MovieCollection.Query.View;
 
 
 namespace MovieCollection.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MovieSelectionController : CrudController<MovieSelectionDto>
+    public class MovieSelectionController : CrudController<MovieSelectionDto, MovieSelectionView>
     {
 
         public MovieSelectionController(IMediator mediator):base(mediator) 

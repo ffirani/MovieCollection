@@ -20,7 +20,8 @@ namespace MovieCollection.Infrastructure.Db.Configurations
             userConfiguration
                 .Property(u => u.Email)
                 .IsRequired(false);
-                
+
+            base.Configure(userConfiguration);
         }
     }
 }

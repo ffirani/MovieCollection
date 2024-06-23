@@ -31,6 +31,7 @@ using FluentValidation;
 using MovieCollection.API.Error;
 using MovieCollection.API.Security;
 using System.Security.Claims;
+using MovieCollection.Query.Db.Configurations;
 
 namespace MovieCollection.API
 {
@@ -125,6 +126,7 @@ namespace MovieCollection.API
                 builder.Services.AddExecutionContext();
 
                 builder.Services.AddDatabase(builder.Configuration);
+                builder.Services.AddReadOnlyDatabase(builder.Configuration);
                 builder.Services.AddRepository();
                 builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(Program)));
                 builder.Services.AddHealthChecks();

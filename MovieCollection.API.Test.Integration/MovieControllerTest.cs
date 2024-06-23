@@ -9,6 +9,7 @@ using MovieCollection.API.Test.Integration.Auth;
 using MovieCollection.API.Test.Integration.Db;
 using MovieCollection.Domain.Models;
 using MovieCollection.Infrastructure.Db;
+using MovieCollection.Query.View;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
@@ -115,7 +116,7 @@ namespace MovieCollection.API.Test.Integration
             //Arange
             var movie = CreateMovieEntityInDb(title, imdbRate, releaseDate);
 
-            var retrieveEntityQuery = new RetrieveEntityQuery<MovieDto>() { Id = movie.Id };
+            var retrieveEntityQuery = new RetrieveEntityQuery<MovieView>() { Id = movie.Id };
             var commandSerialized = JsonConvert.SerializeObject(retrieveEntityQuery);
             var content = new StringContent(commandSerialized, UTF8Encoding.UTF8, "application/json");
             var client = _apiFactory.CreateClient();
@@ -124,7 +125,7 @@ namespace MovieCollection.API.Test.Integration
             HttpRequestMessage request = new HttpRequestMessage
             {
                 Content = content,
-                Method = HttpMethod.Get,
+                Method = HttpMethod.Post,
                 RequestUri = new Uri("/api/movie/retrieve", UriKind.Relative)
             };
             //Act
@@ -132,7 +133,7 @@ namespace MovieCollection.API.Test.Integration
 
             //Assert
             response.EnsureSuccessStatusCode();
-            var retrieveEntity = await response.Content.ReadFromJsonAsync<RetrieveEntityResponse<Movie>>();
+            var retrieveEntity = await response.Content.ReadFromJsonAsync<RetrieveEntityResponse<MovieView>>();
             Assert.NotNull(retrieveEntity);
             Assert.NotNull(retrieveEntity.View);
             Assert.True(retrieveEntity.View.Id == movie.Id && 

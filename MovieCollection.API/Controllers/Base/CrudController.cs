@@ -5,10 +5,12 @@ using MovieCollection.API.Commands.Dto;
 using MovieCollection.API.Commands;
 using MovieCollection.API.Error;
 using MovieCollection.API.Query;
+using MovieCollection.Query.View;
+using MovieCollection.Query.View.Base;
 
 namespace MovieCollection.API.Controllers.Base
 {
-    public class CrudController<T> : Controller
+    public class CrudController<T,TView> : Controller where TView : BaseView 
     {
         protected readonly IMediator _mediator;
 
@@ -58,7 +60,7 @@ namespace MovieCollection.API.Controllers.Base
         [Authorize]
         [Route("retrieve")]
         [HttpPost]
-        public async Task<ActionResult<RetrieveEntityResponse<T>>> Retrieve([FromBody] RetrieveEntityQuery<MovieDto> command)
+        public async Task<ActionResult<RetrieveEntityResponse<TView>>> Retrieve([FromBody] RetrieveEntityQuery<TView> command)
         {
             var reponse = await _mediator.Send(command);
             return Ok(reponse);
@@ -69,7 +71,7 @@ namespace MovieCollection.API.Controllers.Base
         [Authorize]
         [Route("retrieve-multiple")]
         [HttpPost]
-        public async Task<ActionResult<RetrieveMultipleEntityResponse<T>>> RetrieveMultiple([FromBody] RetrieveMultipleEntityQuery<MovieDto> command)
+        public async Task<ActionResult<RetrieveMultipleEntityResponse<TView>>> RetrieveMultiple([FromBody] RetrieveMultipleEntityQuery<TView> command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);

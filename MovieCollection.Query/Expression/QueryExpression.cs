@@ -2,6 +2,6 @@
 {
     public class QueryExpression<T>
     {
-        public QueryFilter Filter { get; set; }
+        public QueryFilter<T> Filter { get; set; }
     }
 }

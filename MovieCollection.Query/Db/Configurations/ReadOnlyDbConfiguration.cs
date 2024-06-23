@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MovieCollection.Query.Db.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +12,9 @@ namespace MovieCollection.Query.Db.Configurations
 {
     public static class ReadOnlyDbConfigurator
     {
-        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddReadOnlyDatabase(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddTransient<IReadOnlyDbContext, AppReadOnlyDbContext>();
             services.AddDbContext<AppReadOnlyDbContext>(options =>
             {
 #if DEBUG
@@ -21,7 +24,6 @@ namespace MovieCollection.Query.Db.Configurations
                 options.UseSqlServer(configuration["ConnectionString"],
                     sqlServerOptionsAction: sqlOptions =>
                     {
-                        sqlOptions.MigrationsAssembly(typeof(DbConfigurator).GetTypeInfo().Assembly.GetName().Name);
                         sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                     });
             }

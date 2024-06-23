@@ -22,6 +22,7 @@ namespace MovieCollection.Infrastructure.Db.Configurations
                 .HasColumnName("Name")
                 .HasMaxLength(250)
                 .IsRequired();
+            base.Configure(movieRoleConfiguration);
         }
     }
 }

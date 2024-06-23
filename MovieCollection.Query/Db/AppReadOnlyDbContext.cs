@@ -7,10 +7,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using MovieCollection.Query.Db.Base;
 using MovieCollection.Query.View;
+using MovieCollection.Query.Db.Configurations.Type;
 
 namespace MovieCollection.Query.Db
 {
-    public class AppReadonlyDbContext: DbContext, IReadOnlyDbContext
+    public class AppReadOnlyDbContext: DbContext, IReadOnlyDbContext
     {
         public DbSet<UserView> Users { get; set; }
         public DbSet<MovieView> Movies { get; set; }
@@ -21,17 +22,19 @@ namespace MovieCollection.Query.Db
         public DbSet<CastAndCrewView> CastAndCrews { get; set; }
         public DbSet<MovieSelectionMovieView> MovieSelectionMovies { get; set; }
 
+        public AppReadOnlyDbContext(DbContextOptions<AppReadOnlyDbContext> options) : base(options)
+        { }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new RefTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new MovieTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new MovieSelectionTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new PersonTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new GenreTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new CastAndCrewTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new MovieRoleTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new MovieSelectionMovieTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MovieViewTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MovieSelectionViewTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PersonViewTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GenreViewTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CastAndCrewViewTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MovieRoleViewTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new MovieSelectionMovieViewTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserViewTypeConfiguration());
         }
         public IQueryable<TEntity> Query<TEntity>() where TEntity : class
         {

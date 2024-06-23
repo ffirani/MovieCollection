@@ -10,13 +10,14 @@ using MovieCollection.API.Error;
 using MovieCollection.API.Query;
 using MovieCollection.Domain.Models;
 using MovieCollection.Domain.Models.Base;
+using MovieCollection.Query.View;
 using System.Runtime.CompilerServices;
 
 namespace MovieCollection.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MovieController : CrudController<MovieDto>
+    public class MovieController : CrudController<MovieDto,MovieView>
     {
         public MovieController(IMediator mediator) : base(mediator)
         {
