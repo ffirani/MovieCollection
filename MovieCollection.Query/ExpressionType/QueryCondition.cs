@@ -1,4 +1,4 @@
-﻿namespace MovieCollection.Query.Expression
+﻿namespace MovieCollection.Query.ExpressionType
 {
     public enum ConditionOperator
     {
@@ -14,14 +14,14 @@
         public object Value2 { get; set; }
 
 
-        public QueryCondition(ConditionOperator @operator, object value1)
+        public QueryCondition(ConditionOperator cuurentOperator, object value1)
         {
-            Operator = @operator;
+            Operator = cuurentOperator;
             Value1 = value1;
         }
-        public QueryCondition(ConditionOperator @operator, object value1, object value2)
+        public QueryCondition(ConditionOperator cuurentOperator, object value1, object value2)
         {
-            Operator = @operator;
+            Operator = cuurentOperator;
             Value1 = value1;
             Value2 = value2;
         }

@@ -2,22 +2,20 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace MovieCollection.Query.Expression
+namespace MovieCollection.Query.ExpressionType
 {
     public class QueryVisitor<T>
     {
         private ParameterExpression _parameter;
-        private QueryExpression<MovieView> query;
 
-        public QueryVisitor(QueryExpression<MovieView> query)
+        public QueryVisitor()
         {
-            this.query = query;
         }
 
         public Expression<Func<T, bool>> Visit(QueryExpression<T> query)
         {
             _parameter = Expression.Parameter(typeof(T), "x");
-            Expression exp = VisitFilters(query.Filters);
+            Expression exp = VisitFilter(query.Filter);
             return Expression.Lambda<Func<T, bool>>(exp, _parameter);
         }
 

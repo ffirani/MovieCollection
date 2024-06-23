@@ -1,4 +1,4 @@
-﻿namespace MovieCollection.Query.Expression
+﻿namespace MovieCollection.Query.ExpressionType
 {
     public class QueryExpression<T>
     {

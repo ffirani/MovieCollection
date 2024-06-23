@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using MovieCollection.Query.Expression;
+using MovieCollection.Query.ExpressionType;
 using MovieCollection.Query.View.Base;
 
 namespace MovieCollection.API.Query
