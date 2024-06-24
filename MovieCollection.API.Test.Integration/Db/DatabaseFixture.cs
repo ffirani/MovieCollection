@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MovieCollection.API.Core.Authentication;
 using MovieCollection.Infrastructure.Db;
 using NSubstitute;
@@ -12,11 +13,16 @@ namespace MovieCollection.API.Test.Integration.Db
 {
     public class DatabaseFixture : IDisposable
     {
-        public AppDbContext Db {  get; set; }
-        public DatabaseFixture() 
+        public AppDbContext Db { get; set; }
+        public DatabaseFixture()
         {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .Build();
+
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseSqlServer("Server=tcp:127.0.0.1,1433;Database=MovieCollectionDb;User Id=sa;Password=Passw0rd;TrustServerCertificate=true")
+                .UseSqlServer(configuration["ConnectionString"])
                 .Options;
 
             var identityFake = Substitute.For<IIdentityService>();
@@ -36,7 +42,7 @@ namespace MovieCollection.API.Test.Integration.Db
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                
+
             }
         }
 
