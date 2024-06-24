@@ -7,11 +7,13 @@ This project is a movie collection application that allows users to:
 - Add movies along with their cast, crew, and genre.
 - Create movie selections, which are lists of selected movies.
 
-Users can view other users' movies and movie selections but can only modify their own. 
+Users can view other users' movies and movie selections but can only modify their own.
 
 For creating, updating, and deleting certain entities like Genre and Movie Role, users must have the Admin role. This can be configured in the `SecurityManager` class.
 
 There are tests written for this application, including some integration tests for the API. However, the tests do not cover everything and are primarily written to demonstrate concepts. This application is not a complete production-ready solution and needs improvements for production use.
+
+A Swagger UI is available for the API, providing an interactive interface for exploring and testing the endpoints. For authentication, you can use tokens provided in the `MovieCollection.API.Test.Integration` project or generate tokens using the `TokenHelper` in that project.
 
 ## Setup
 
