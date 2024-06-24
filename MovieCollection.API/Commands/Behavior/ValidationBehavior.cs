@@ -29,7 +29,7 @@ namespace MovieCollection.API.Commands.Behavior
                     x => x.ErrorMessage,
                     (propertyName, errorMessages) => new ValidationFailure
                     {
-                        ErrorCode = "5001",
+                        ErrorCode = "ERR5001",
                         PropertyName = propertyName,
                         ErrorMessage = string.Join("\r\n",errorMessages)
                     })

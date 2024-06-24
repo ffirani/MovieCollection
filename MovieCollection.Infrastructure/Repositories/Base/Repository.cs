@@ -52,9 +52,15 @@ namespace MovieCollection.Infrastructure.Repositories.Base
             return await _dbSet.FindAsync(id);
         }
 
+        public async virtual Task<bool> IsRecordOwnerAsync(Guid id , Guid userId)
+        {
+            return await _dbSet.AnyAsync(e => e.OwnerId == userId && e.Id == id);
+        }
+
         protected async virtual Task SaveAsync()
         {
             await _dbContext.SaveChangesAsync();
         }
+
     }
 }

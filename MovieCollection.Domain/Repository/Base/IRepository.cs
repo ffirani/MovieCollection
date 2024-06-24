@@ -13,5 +13,6 @@ namespace MovieCollection.Domain.Repository.Base
         public Task UpdateAsync(T entity);
         public Task DeleteAsync(Guid id);
         public Task<T> GetByIdAsync(Guid id);
+        Task<bool> IsRecordOwnerAsync(Guid userId, Guid userId1);
     }
 }
