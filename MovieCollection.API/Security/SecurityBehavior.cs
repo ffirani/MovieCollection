@@ -20,7 +20,7 @@ namespace MovieCollection.API.Security
                 var user = httpContext.User;
                 if (user != null && user.Identity.IsAuthenticated)
                 {
-                    var hasPermissionToRunCommnad = _securityManager.HasPermissionToRuneCommnad(user, request);
+                    var hasPermissionToRunCommnad = _securityManager.HasPermissionToRunCommnad(user, request);
                     if (!hasPermissionToRunCommnad)
                     {
                         throw new UnauthorizedAccessException("User does not have the required  role.");

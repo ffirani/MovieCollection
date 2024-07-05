@@ -7,7 +7,7 @@ namespace MovieCollection.API.Security
     public class SecurityManager : ISecurityManager
     {
 
-        public bool HasPermissionToRuneCommnad<TRequest>(ClaimsPrincipal user, TRequest request) where TRequest : class
+        public bool HasPermissionToRunCommnad<TRequest>(ClaimsPrincipal user, TRequest request) where TRequest : class
         {
             if (user == null) throw new ArgumentNullException("Invalid user value");
             if (request == null) throw new ArgumentNullException("Invalid request value");
